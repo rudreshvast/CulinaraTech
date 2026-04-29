@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CulinaraTech | Bridge the Gap. Lead the Industry.</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "background": "#faf9fd",
+                        "on-primary-container": "#e8e1ff",
+                        "on-background": "#1a1b1e",
+                        "inverse-surface": "#2f3033",
+                        "tertiary-fixed": "#cee5ff",
+                        "on-secondary-fixed-variant": "#005236",
+                        "surface-container-highest": "#e3e2e6",
+                        "on-surface-variant": "#484556",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#4edea3",
+                        "secondary-container": "#6cf8bb",
+                        "outline": "#787588",
+                        "primary": "#4b17e3",
+                        "tertiary": "#005282",
+                        "on-primary-fixed": "#1a0063",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#5c35f3",
+                        "on-tertiary-fixed-variant": "#004a76",
+                        "on-tertiary-container": "#d3e7ff",
+                        "inverse-primary": "#c8bfff",
+                        "outline-variant": "#c9c4d9",
+                        "surface": "#faf9fd",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e3e2e6",
+                        "secondary-fixed": "#6ffbbe",
+                        "surface-container-high": "#e9e7eb",
+                        "on-surface": "#1a1b1e",
+                        "surface-bright": "#faf9fd",
+                        "primary-container": "#6440fb",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#f2f0f4",
+                        "surface-dim": "#dbd9dd",
+                        "primary-fixed-dim": "#c8bfff",
+                        "on-secondary-fixed": "#002113",
+                        "on-secondary-container": "#00714d",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-low": "#f4f3f7",
+                        "secondary": "#006c49",
+                        "primary-fixed": "#e5deff",
+                        "tertiary-fixed-dim": "#96cbff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#4300da",
+                        "tertiary-container": "#016ba7",
+                        "on-tertiary-fixed": "#001d33",
+                        "surface-container": "#efedf1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "gutter": "20px",
+                        "xl": "48px",
+                        "sm": "8px",
+                        "container-max": "1280px",
+                        "md": "16px",
+                        "base": "4px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "h3": ["Space Grotesk"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "h2": ["Space Grotesk"],
+                        "body-lg": ["Inter"],
+                        "h1": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-sm": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "h2": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .airy-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background selection:bg-primary-container selection:text-white">
+<!-- TopAppBar -->
+<header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200/50 shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+<nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center w-full">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#6440FB]" data-icon="restaurant_menu">restaurant_menu</span>
+<span class="text-xl font-bold text-[#6440FB] tracking-tighter font-h3">CulinaraTech</span>
+</div>
+<div class="hidden md:flex items-center gap-8 font-['Space_Grotesk'] text-sm tracking-tight">
+<a class="text-[#6440FB] font-bold border-b-2 border-[#6440FB] pb-1" href="#">Home</a>
+<a class="text-slate-600 font-medium hover:text-[#6440FB] transition-colors" href="#">Courses</a>
+<a class="text-slate-600 font-medium hover:text-[#6440FB] transition-colors" href="#">Apprenticeships</a>
+<a class="text-slate-600 font-medium hover:text-[#6440FB] transition-colors" href="#">Partners</a>
+</div>
+<button class="bg-[#6440FB] text-white px-6 py-2 rounded-lg font-['Space_Grotesk'] text-sm font-bold active:scale-95 transition-transform duration-200 hover:opacity-90">
+                Join Platform
+            </button>
+</nav>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-[751px] flex items-center overflow-hidden bg-surface-container-lowest">
+<div class="absolute inset-0 z-0">
+<img alt="Futuristic Food Lab" class="w-full h-full object-cover opacity-10" data-alt="futuristic food science laboratory with glowing blue interfaces automated robotic arms and clean glass surfaces in a high-tech minimalist style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBy2l2clCX6nnSVjReeRUZm7uf74dQGsQ4gwIcAJNigfLX0D1Gs-E1ICIoqfrxeT92jthH7zpBM-tw91nm0JjcNAghGZ249ivQWBjNbEQ4a8nh7XhwgVIydZ-t14CDqtNNDzsK0UN7xCr3femy8R5r_YUH76aLWxbzyoVK1dgJeugUG82d-GJUkjblM71VZIMVHVAZq9sVXlk6-golXy0SjKI_J5eQVHy7CebpvU822ZDio4moiim7mh13fXZwB_REAeJYwycnqk1E"/>
+<div class="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent"></div>
+</div>
+<div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 relative z-10">
+<div class="flex flex-col justify-center gap-6">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant text-label-sm w-fit">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                        Next-Gen Vocational Training
+                    </div>
+<h1 class="font-h1 text-h1 text-on-background">
+                        Bridge the Gap. <br/>
+<span class="text-primary-container">Lead the Industry.</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
+                        Master the intersection of culinary arts and advanced engineering. CulinaraTech provides the precision tools for the future of food processing.
+                    </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="bg-primary text-white px-8 py-4 rounded-xl font-h3 text-body-md shadow-lg active:scale-95 transition-all">
+                            Explore Courses
+                        </button>
+<button class="bg-transparent border border-outline px-8 py-4 rounded-xl font-h3 text-body-md hover:bg-surface-variant active:scale-95 transition-all">
+                            Partner With Us
+                        </button>
+</div>
+</div>
+<div class="hidden md:flex justify-center items-center">
+<div class="relative w-full max-w-md aspect-square">
+<div class="absolute inset-0 bg-primary-container/20 rounded-full blur-3xl"></div>
+<div class="glass-card airy-shadow relative rounded-3xl p-8 border border-white/50 overflow-hidden">
+<img alt="Robotic Food Processing" class="rounded-xl object-cover w-full h-64 mb-6 shadow-md" data-alt="close-up of a high-tech robotic gripper delicately handling a fresh ingredient in a sterile white automated kitchen environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLobF3p9YYI_jvVQMbPcK_G4PS2StAfayFLDq-3EyBPxqko8hQ8piuFNz6iz-CinyZzvyWq1PJOsswfj1suMuJbWisgi59U8S8acgmfusJrvmfOVlUgb5dLyViGOMvRUvH2ZEDXhTkCikUGhyt_OTwJ92QMwf_oAravpy-Ncp3fgQZck8L7TV5dcJW0Ty-pnL5lq4pd4F5YXLaLstC7Lth31rBEKAvOrhkIQcqUU1F4N1pFDyD4g_6rcIREzTv5LU5mRNXqO2lsO0"/>
+<div class="space-y-4">
+<div class="h-2 w-24 bg-secondary-container rounded-full"></div>
+<div class="h-4 w-full bg-surface-variant rounded-lg"></div>
+<div class="h-4 w-2/3 bg-surface-variant rounded-lg"></div>
+</div>
+</div>
+<div class="absolute -bottom-6 -right-6 bg-white p-4 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-4">
+<div class="w-12 h-12 bg-[#6440FB] rounded-full flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+</div>
+<div>
+<p class="text-label-sm text-slate-500 uppercase">Success Rate</p>
+<p class="text-h3 text-[#6440FB]">98%</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Courses Section -->
+<section class="py-24 bg-white">
+<div class="container mx-auto px-6">
+<div class="flex justify-between items-end mb-12">
+<div>
+<h2 class="font-h2 text-h2 text-on-background mb-2">Featured Courses</h2>
+<p class="text-on-surface-variant font-body-md">Precision training designed by industry architects.</p>
+</div>
+<div class="flex gap-2">
+<button class="p-3 rounded-full border border-outline hover:bg-slate-50"><span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span></button>
+<button class="p-3 rounded-full border border-outline hover:bg-slate-50"><span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span></button>
+</div>
+</div>
+<div class="flex gap-6 overflow-x-auto pb-8 no-scrollbar snap-x">
+<!-- Card 1 -->
+<div class="min-w-[340px] md:min-w-[400px] snap-start">
+<div class="bg-white rounded-[2rem] p-6 airy-shadow border border-slate-100 group cursor-pointer transition-all hover:-translate-y-2">
+<div class="relative overflow-hidden rounded-2xl h-56 mb-6">
+<img alt="Food Safety" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="microscopic view of food particles and scientific testing gear in a modern laboratory setup with clean aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApIVFtp_h8j2sqZKpaqjgmI7TYl1auD9Hx8hV390IgAPQZX9EUzrr-Cjbv8VKoiVkWmkjh9SuQiIdSVJOWrzdlbVWJkIHTRPUPd2wFAUsfGp5FZQSxNu_t7kfmmfMRVe40Q40HnLbbPkuraEOmIuSY55tBQDlwHvlSq4r45AEEv7E9RZHPPZFJwdfVbYWpzB39BQqo63NnXg2RxbE9s9Xpc-aLuROURN4xppTaWGFeikxgkdLXk1AlieRm05Ztoy2qAoWYIg6Cdcs"/>
+<div class="absolute top-4 left-4 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm">Industry Led</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center text-label-sm text-outline">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span> 12 Weeks</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]" data-icon="bar_chart">bar_chart</span> Advanced</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-background">Advanced Food Safety &amp; Biosecurity</h3>
+<div class="pt-4 border-t border-slate-100 flex justify-between items-center">
+<span class="font-bold text-primary">₹14,999</span>
+<button class="text-primary-container font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
+                                        Enroll Now <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="min-w-[340px] md:min-w-[400px] snap-start">
+<div class="bg-white rounded-[2rem] p-6 airy-shadow border border-slate-100 group cursor-pointer transition-all hover:-translate-y-2">
+<div class="relative overflow-hidden rounded-2xl h-56 mb-6">
+<img alt="Dairy Automation" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="automated dairy processing line with shiny stainless steel pipes and high-tech digital control panels in a bright facility" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlAXxEkk02V8VGFfDr3Hptt-uULUfr5ThKnclmweoH6aFzIJV_Iwxwb6b0xDJNNFtO5SzmjTU76N3DYC9OoSe88zRz5w1gmRh7pFbduM3QpiEh-ju3G6jCDBigLq3fJXqTOwLMWCZaOgJLz0CKpXfM4e0742GS3n6H8K1G_fPJ9MyW5uxy3WazHaIaizPHQtiPgBF_AB0rzI3071ZOTWlizIjVwA2gxOwty0zlH-4814AAT0lDvcCEEuh-fi3k0lJSGf0htkQTCn8"/>
+<div class="absolute top-4 left-4 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm">Industry Led</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center text-label-sm text-outline">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span> 8 Weeks</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]" data-icon="bar_chart">bar_chart</span> Intermediate</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-background">Dairy Processing Automation</h3>
+<div class="pt-4 border-t border-slate-100 flex justify-between items-center">
+<span class="font-bold text-primary">₹12,499</span>
+<button class="text-primary-container font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
+                                        Enroll Now <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="min-w-[340px] md:min-w-[400px] snap-start">
+<div class="bg-white rounded-[2rem] p-6 airy-shadow border border-slate-100 group cursor-pointer transition-all hover:-translate-y-2">
+<div class="relative overflow-hidden rounded-2xl h-56 mb-6">
+<img alt="Plant Protein" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="close-up of plant-based protein texture development in a petri dish with subtle green lighting and scientific aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDX-uHoHsQKjnULWJtelz26_yRMKIaKRRAW7_8K00KLT-fB27ZiyX4W1PhGeeZqghxpSJtunKZz07ZIw6x_LMC3bQlZMR0BKIEGrUN4fN4VVYbqC4cJS0aFe2vTByg4snzUmBNxW9Px5UGGrqQIsb6R6Fyg0UaudzKkgkcaAGc1SI4mqf00y9mem3xGQbvoVY5cRUXxwbImV6EVEIktU7W-CwYyX4dDHe8lgCSLdgrvgzfXsWC0EGT7i3GtL2fDA4taTJEVTcHQ1Q"/>
+<div class="absolute top-4 left-4 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm">Industry Led</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center text-label-sm text-outline">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span> 16 Weeks</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]" data-icon="bar_chart">bar_chart</span> Expert</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-background">Alternative Protein Synthesis</h3>
+<div class="pt-4 border-t border-slate-100 flex justify-between items-center">
+<span class="font-bold text-primary">₹18,999</span>
+<button class="text-primary-container font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
+                                        Enroll Now <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Apprenticeship Teaser -->
+<section class="py-24 bg-surface-container-low overflow-hidden">
+<div class="container mx-auto px-6">
+<div class="bg-primary-container rounded-[3rem] p-12 md:p-20 relative overflow-hidden text-white flex flex-col md:flex-row items-center gap-12">
+<div class="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
+<svg class="w-full h-full" fill="none" viewbox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+<circle cx="200" cy="200" r="180" stroke="white" stroke-dasharray="10 10" stroke-width="2"></circle>
+<circle cx="200" cy="200" r="140" stroke="white" stroke-width="2"></circle>
+<circle cx="200" cy="200" r="100" stroke="white" stroke-dasharray="5 5" stroke-width="2"></circle>
+</svg>
+</div>
+<div class="md:w-3/5 space-y-6 relative z-10">
+<div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/20 backdrop-blur-sm text-label-sm border border-white/30">
+                            Direct Industry Pipeline
+                        </div>
+<h2 class="font-h1 text-h1">Real-World Experience at Scale.</h2>
+<p class="font-body-lg text-white/80">
+                            Our apprenticeships connect you directly with top-tier food processing units. Learn on-site, earn credits, and secure your place in the industry before you graduate.
+                        </p>
+<div class="flex flex-col sm:flex-row gap-4 pt-4">
+<button class="bg-secondary-fixed text-on-secondary-fixed px-8 py-4 rounded-xl font-h3 text-body-md shadow-lg active:scale-95 transition-all">
+                                View Placements
+                            </button>
+<div class="flex -space-x-3 items-center">
+<img alt="Student 1" class="w-10 h-10 rounded-full border-2 border-primary-container" data-alt="portrait of a young professional smiling in a clean industrial kitchen setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7PYqPc54xICeG5HJCUM_FrTAx74kuBeOCUeY5z2kDxwrThIW7shnhJR_T4ifFrwith8_brB29BXoW0XgBc7Bhra-SbgYD8e_N7_oPCnqZJI1InsHaPUEll2ggDyWoXYzwRa-V4_tnm_1DOdXOmsNfaPaB00e2nyVUMTOMHUCIDYwIEKBzmjIZ752ePuLeF8SX72hh3n3GnaXgUsewAcCvosg1Et1C1DprDK5jDyuyYyj0p5ueK_gMq1GxVInaIjXlQVf6FZwOsUE"/>
+<img alt="Student 2" class="w-10 h-10 rounded-full border-2 border-primary-container" data-alt="portrait of a confident woman in a lab coat in a modern science facility" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlB846S7gcyMzNh67fU_SftVZLAs98I5jHkqVN73At5Le24glBgy2aSCzo94i23OZlveLGTgKqZbTGquuJlhqascCDktzy6pltFaEoh-12qBoYK6id6-TaFlArcbW55njDgT2xQ4dqvu9RZtCzIOymkxZClMCJ330KGXogJEUZezmlS7koOdSVDxFMejWGRZK1lIfcuM3ZtVixUzCTAOB579d_c85eBHjd7O2ne5Wb-6LF_M1bw4K0YYaD4QDXIjPRsm8bdn85dOc"/>
+<img alt="Student 3" class="w-10 h-10 rounded-full border-2 border-primary-container" data-alt="portrait of a young man with a friendly expression in a corporate tech environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWUd2jVfNhYQ9Cd9P-loUtQC86d9OhphI-u7GOLmw2sTmp9vBoOOjthn1fDhdQklc4jFgfU4mxsQVnbjZ5BGmy-z0gwl_mxDQ9xfaYNAe-684Ho5exARrfVY3cC5DHWqb7hgOYzn2PDsIlu0xAvUQvv9l9jDc5lfFOD1sjpNTfVNpv7rRnTHNIaYrPTntuHBuDKf_GyBqAYAugFd750OMOnqgVvBN8YRAbb5E-GO28neId2vpwmwgYEB-nZKXZBVtQ1EUWX_2XhxE"/>
+<span class="pl-6 text-label-sm font-medium">Joined by 500+ professionals</span>
+</div>
+</div>
+</div>
+<div class="md:w-2/5 flex flex-col gap-4 relative z-10">
+<div class="glass-card p-6 rounded-2xl border-white/20 text-on-background">
+<div class="flex items-center gap-4 mb-4">
+<span class="material-symbols-outlined text-primary-container" data-icon="factory">factory</span>
+<p class="font-h3 text-body-md text-slate-800">Global Foods Corp</p>
+</div>
+<p class="text-label-sm text-slate-600 mb-4">"CulinaraTech students are the most tech-literate candidates we've interviewed."</p>
+<div class="flex justify-between items-center text-xs font-semibold text-slate-400">
+<span>Placement Lead</span>
+<span class="text-secondary">Verified Partner</span>
+</div>
+</div>
+<div class="glass-card p-6 rounded-2xl border-white/20 text-on-background translate-x-8">
+<div class="flex items-center gap-4 mb-4">
+<span class="material-symbols-outlined text-primary-container" data-icon="precision_manufacturing">precision_manufacturing</span>
+<p class="font-h3 text-body-md text-slate-800">AgriTech Solutions</p>
+</div>
+<p class="text-label-sm text-slate-600 mb-4">"Bridging the vocational gap with cutting-edge automation training."</p>
+<div class="flex justify-between items-center text-xs font-semibold text-slate-400">
+<span>R&amp;D Director</span>
+<span class="text-secondary">Verified Partner</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Industry Partners -->
+<section class="py-16 bg-white border-b border-slate-100">
+<div class="container mx-auto px-6 text-center">
+<p class="text-label-sm text-outline uppercase tracking-widest mb-12">Empowering Excellence With</p>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center opacity-60 grayscale hover:grayscale-0 transition-all">
+<div class="flex justify-center p-4 h-12">
+<img alt="Partner Logo" class="h-full object-contain" data-alt="abstract minimalist corporate logo in black and white for a technology company" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxV7VtJ5f5ga9ulVIOIj7CqKtf1spWpIVGsMl1B3TgP5wR9sj4FkI3X1Z3TCXHQKTBixLsxiCbOCFDEZgZpQ_7W1g1yVkfeY69eRL9e237b7B1zzAJzl_f_4v8hGSWlepmCCQo0jPhgv6FWembw6iMALL-SmVjE_Jegtv2Y0Aax5p_1f9fRxB9dkVYrUSPU9_0g2VxfannAi8H177LAhTjAK4WWTFLSVrMPvv4frm7ZP-6L0_LG_4Fv1ZCAHsZDGvfafcQqSpZmxA"/>
+</div>
+<div class="flex justify-center p-4 h-12">
+<img alt="Partner Logo" class="h-full object-contain" data-alt="abstract geometric corporate brand logo representing precision and science" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuTXElZ5dX5ezxO0nURsJhMVIQFxgZWepu6Nr2lPzZH6P98dEmVnBjXqLaiGCO-wswcNdJR3OWBZu9ZTmJiSJng-z-tr3f15d0jJ9h9w2nat8_cZTn2YblCMl6gYqXs8sDAaKihkMmbI_9qLRuIv0rWx3sjWtl4h9CKqRC5pDknIVeRu5H3VnsbnlhbjjDyp33UP9Nophw8x8TkLgX3j0SA0vOWAXKW-giS38Zjumnz6-Ka6sXggSZzR34YmVeoz8Lu9-9Buv3CsI"/>
+</div>
+<div class="flex justify-center p-4 h-12">
+<img alt="Partner Logo" class="h-full object-contain" data-alt="sleek modern corporate icon for an innovative global food organization" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGSQq0Q7AXbUS26RF3n0phcOAz4_hR3uE_9yyw664js_yO9GiyFeJDRMUTnqu-V_SZlUPIhvKLkObiC4B_3HGZSDO8NLsZcWZTttlEr_KUk3hTiMrAQ67eJKZCfiB871GowD_vtTY9LWcIDLomgeCwD8t1H10CeY6hPl4D34kthWtUyTFZsPRdEMU-nORZARhYCK39ohiAyomnVcCOgU0h0YFJPRRwedNOwaPqUrpFXZepgVtmjrECHfWFQ2nQEvVZRupphRJLVFI"/>
+</div>
+<div class="flex justify-center p-4 h-12">
+<img alt="Partner Logo" class="h-full object-contain" data-alt="minimalist typographic logo for a high-tech manufacturing firm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdmCjiWTMFAPNa_Q6ryhKBi7KDEqF5kTSPIByMMBiBSGrBhrJ115P2qcJlWQV4xxdgx6jQgmKwxBw-z5HNM-uV8dZpRokZue0evxvMJBcL4UwgZZPofMH_FfEF5Wz8gmJSNm5LMGMGRPFX-VttPUjTHO8QR0L_4M1gZ6zmoTBl29hLHi4_PNHfHOOvNDoQMvEkzrupknFIiX_kRkXityLI4P46jENdids88IwD0FA1NbJrJAdQ3RmKCsedi6Kc6OS4HYA6AyjyGNo"/>
+</div>
+<div class="flex justify-center p-4 h-12">
+<img alt="Partner Logo" class="h-full object-contain" data-alt="simple elegant line-art logo for a professional education and training partner" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCG56rI4yanjJRnUE32EZeK3QMuiqoPBlve7_SBVmqLHg-K9BjF8VgaV-hZ6p0qAKu4fyyVvQVd7RXJzgUVrX10Dic2csL3kbKGCJn5XuBmzqXBexu8fTkRVKr9nEu-tos-I6RkGHHmpBg1D0yikJ69Nh_7sBnDmTY0-duGtdMUVsaL6_R-4a5k4phnmgKNw_NSjivVECcqo1JVxfgQoqj9YxYCSjaKx1pfHZLsUz1577OTCtevq4gRscezAqDh3qH65PtySI3TM4E"/>
+</div>
+<div class="flex justify-center p-4 h-12">
+<img alt="Partner Logo" class="h-full object-contain" data-alt="modern corporate emblem for a laboratory and scientific research facility" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCP2ccPZwCs4ic7-KULAbSuU1NoeaEjrz75vmUkqf3TCWQjgK7ch2eaW7loJW8zMVGs1fnU7D_LuYXXXYf_XarkaAFJmEspOXv7chMI_tsIi-qWeLfWjPygYT9U7OmeMipJHzwt_0eLEnxnrtl5vE0b7aLnprfZ149b5jNpi6lXySD1HZ2QHrC4dy2s7X1xQk8XRyW17YVDY9dfKgIzOJvIEkaOfjpBcREwfyMrILSl8Mh08Mjv2B0_Va7mFXu-qtRFI0M2lE_rIP8"/>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-50 border-t border-slate-200 py-12">
+<div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex flex-col items-center md:items-start gap-4">
+<div class="flex items-center gap-2">
+<span class="text-lg font-black text-slate-900 font-h3">CulinaraTech</span>
+</div>
+<p class="font-['Space_Grotesk'] text-xs font-medium text-slate-500">© 2024 CulinaraTech Edutech. Precision in Processing.</p>
+</div>
+<div class="flex gap-8 font-['Space_Grotesk'] text-xs font-medium">
+<a class="text-[#6440FB] underline" href="#">Courses</a>
+<a class="text-slate-500 hover:text-slate-900 transition-opacity cursor-pointer" href="#">Apprenticeships</a>
+<a class="text-slate-500 hover:text-slate-900 transition-opacity cursor-pointer" href="#">Partners</a>
+<a class="text-slate-500 hover:text-slate-900 transition-opacity cursor-pointer" href="#">Privacy</a>
+<a class="text-slate-500 hover:text-slate-900 transition-opacity cursor-pointer" href="#">Terms</a>
+</div>
+<div class="flex gap-4">
+<div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 hover:bg-primary-container hover:text-white transition-all cursor-pointer">
+<span class="material-symbols-outlined text-sm" data-icon="public">public</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 hover:bg-primary-container hover:text-white transition-all cursor-pointer">
+<span class="material-symbols-outlined text-sm" data-icon="share">share</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

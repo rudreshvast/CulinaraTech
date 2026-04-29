@@ -1,26 +1,360 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Cyber Culinary — globals.css  (Tailwind v4)
+   src/app/globals.css
+───────────────────────────────────────────────────────────────────────────── */
+
 @import "tailwindcss";
+/* ── @theme — Tailwind v4 design tokens ─────────────────────────────────── */
+@theme {
+  /* Fonts — creates font-headline, font-body, font-sans utilities */
+  --font-headline: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-body:     var(--font-inter), system-ui, sans-serif;
+  --font-sans:     var(--font-inter), system-ui, sans-serif;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary colour scale — creates bg-primary-*, text-primary-*, etc. */
+  --color-primary-50:  #f0ecff;
+  --color-primary-100: #d9d0fd;
+  --color-primary-200: #b8a8fb;
+  --color-primary-300: #9680f9;
+  --color-primary-400: #7a5ef8;
+  --color-primary-500: #6440F8;
+  --color-primary-600: #5233d9;
+  --color-primary-700: #4028b5;
+  --color-primary-800: #2e1e8a;
+  --color-primary-900: #1c1260;
+
+  /* Secondary colour scale */
+  --color-secondary-50:  #ecfdf5;
+  --color-secondary-100: #d1fae5;
+  --color-secondary-200: #a7f3d0;
+  --color-secondary-300: #6ee7b7;
+  --color-secondary-400: #34d399;
+  --color-secondary-500: #10B981;
+  --color-secondary-600: #059669;
+  --color-secondary-700: #047857;
+  --color-secondary-800: #065f46;
+  --color-secondary-900: #064e3b;
+
+  /* Tertiary colour scale */
+  --color-tertiary-50:  #eef6fd;
+  --color-tertiary-100: #d3e9f9;
+  --color-tertiary-200: #a8d4f3;
+  --color-tertiary-300: #7dbeed;
+  --color-tertiary-400: #5ca7e5;
+  --color-tertiary-500: #418FCD;
+  --color-tertiary-600: #3275aa;
+  --color-tertiary-700: #265a84;
+  --color-tertiary-800: #1a405f;
+  --color-tertiary-900: #0e2639;
+
+  /* Neutral colour scale */
+  --color-neutral-50:  #f6f6f7;
+  --color-neutral-100: #e4e4e7;
+  --color-neutral-200: #c8c9cf;
+  --color-neutral-300: #a0a1ac;
+  --color-neutral-400: #71727f;
+  --color-neutral-500: #4e4f5c;
+  --color-neutral-600: #383944;
+  --color-neutral-700: #27282f;
+  --color-neutral-800: #1A1B1E;
+  --color-neutral-900: #0e0f11;
+
+  /* Semantic tokens (light) — creates bg-background, text-foreground, etc. */
+  --color-background:             #f9f9fb;
+  --color-foreground:             #111113;
+  --color-card:                   #ffffff;
+  --color-card-foreground:        #111113;
+  --color-popover:                #ffffff;
+  --color-popover-foreground:     #111113;
+  --color-muted:                  #f0f0f3;
+  --color-muted-foreground:       #71727f;
+  --color-border:                 #e4e4e7;
+  --color-input:                  #e4e4e7;
+  --color-ring:                   #6440F8;
+  --color-destructive:            #ef4444;
+  --color-destructive-foreground: #ffffff;
+
+  /* Border radius */
+  --radius-sm:  0.375rem;
+  --radius-md:  0.5rem;
+  --radius-lg:  0.625rem;
+  --radius-xl:  0.75rem;
+  --radius-2xl: 1rem;
+
+  /* Font sizes — creates text-display-lg, text-body-md, text-label-sm, etc. */
+  --text-display-lg: 3rem;
+  --text-display-md: 2.25rem;
+  --text-display-sm: 1.875rem;
+  --text-display-xs: 1.5rem;
+  --text-body-xl:    1.25rem;
+  --text-body-lg:    1.125rem;
+  --text-body-md:    1rem;
+  --text-body-sm:    0.875rem;
+  --text-body-xs:    0.75rem;
+  --text-label-lg:   0.875rem;
+  --text-label-md:   0.8125rem;
+  --text-label-sm:   0.875rem;
+
+  /* Material Design 3 color tokens */
+  --color-primary:                  #4b17e3;
+  --color-primary-container:        #6440fb;
+  --color-on-primary:               #ffffff;
+  --color-on-primary-container:     #e8e1ff;
+  --color-primary-fixed:            #e5deff;
+  --color-primary-fixed-dim:        #c8bfff;
+  --color-on-primary-fixed:         #1a0063;
+  --color-on-primary-fixed-variant: #4300da;
+  --color-secondary:                #006c49;
+  --color-secondary-container:      #6cf8bb;
+  --color-on-secondary:             #ffffff;
+  --color-on-secondary-container:   #00714d;
+  --color-secondary-fixed:          #6ffbbe;
+  --color-secondary-fixed-dim:      #4edea3;
+  --color-on-secondary-fixed:       #002113;
+  --color-on-secondary-fixed-variant: #005236;
+  --color-tertiary:                 #005282;
+  --color-tertiary-container:       #016ba7;
+  --color-on-tertiary:              #ffffff;
+  --color-on-tertiary-container:    #d3e7ff;
+  --color-tertiary-fixed:           #cee5ff;
+  --color-tertiary-fixed-dim:       #96cbff;
+  --color-on-tertiary-fixed:        #001d33;
+  --color-on-tertiary-fixed-variant: #004a76;
+  --color-surface:                  #faf9fd;
+  --color-surface-bright:           #faf9fd;
+  --color-surface-dim:              #dbd9dd;
+  --color-surface-container:        #efedf1;
+  --color-surface-container-low:    #f4f3f7;
+  --color-surface-container-high:   #e9e7eb;
+  --color-surface-container-highest: #e3e2e6;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-variant:          #e3e2e6;
+  --color-surface-tint:             #5c35f3;
+  --color-on-surface:               #1a1b1e;
+  --color-on-surface-variant:       #484556;
+  --color-on-background:            #1a1b1e;
+  --color-outline:                  #787588;
+  --color-outline-variant:          #c9c4d9;
+  --color-error:                    #ba1a1a;
+  --color-error-container:          #ffdad6;
+  --color-on-error:                 #ffffff;
+  --color-on-error-container:       #93000a;
+  --color-inverse-surface:          #2f3033;
+  --color-inverse-on-surface:       #f2f0f4;
+  --color-inverse-primary:          #c8bfff;
+
+  /* Font family aliases */
+  --font-h1:         var(--font-space-grotesk), system-ui, sans-serif;
+  --font-h2:         var(--font-space-grotesk), system-ui, sans-serif;
+  --font-h3:         var(--font-space-grotesk), system-ui, sans-serif;
+  --font-spaceGrotesk: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-body-md:    var(--font-inter), system-ui, sans-serif;
+  --font-body-lg:    var(--font-inter), system-ui, sans-serif;
+  --font-label-sm:   var(--font-inter), system-ui, sans-serif;
+
+  /* Font size aliases */
+  --text-h1: 3rem;
+  --text-h2: 2rem;
+  --text-h3: 1.5rem;
+
+  /* Spacing tokens */
+  --spacing-xs:      0.25rem;
+  --spacing-sm:      0.5rem;
+  --spacing-md:      1rem;
+  --spacing-lg:      1.5rem;
+  --spacing-xl:      3rem;
+  --spacing-gutter:  1.25rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ── Dark mode overrides ──────────────────────────────────────────────────── */
+.dark {
+  --color-background:         #111113;
+  --color-foreground:         #f0f0f3;
+  --color-card:               #1a1b1e;
+  --color-card-foreground:    #f0f0f3;
+  --color-popover:            #1a1b1e;
+  --color-popover-foreground: #f0f0f3;
+  --color-muted:              #27282f;
+  --color-muted-foreground:   #a0a1ac;
+  --color-border:             #27282f;
+  --color-input:              #27282f;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ── Base resets ──────────────────────────────────────────────────────────── */
+@layer base {
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
   }
+
+  * {
+    border-color: var(--color-border);
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-headline);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  h1 { font-size: var(--text-display-lg); }
+  h2 { font-size: var(--text-display-md); }
+  h3 { font-size: var(--text-display-sm); }
+  h4 { font-size: var(--text-display-xs); }
+  h5 { font-size: var(--text-body-xl); font-weight: 600; }
+  h6 { font-size: var(--text-body-lg); font-weight: 600; }
+
+  p { font-size: var(--text-body-md); }
+
+  a {
+    color: var(--color-primary-500);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  a:hover { color: var(--color-primary-400); }
+
+  ::selection { background-color: rgba(100, 64, 248, 0.2); }
+
+  ::-webkit-scrollbar        { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track  { background: var(--color-muted); }
+  ::-webkit-scrollbar-thumb  { background: rgba(100,64,248,0.4); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(100,64,248,0.7); }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ── Utilities ────────────────────────────────────────────────────────────── */
+@layer utilities {
+  .text-gradient-primary {
+    background: linear-gradient(135deg, #6440F8 0%, #418FCD 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-secondary {
+    background: linear-gradient(135deg, #10B981 0%, #418FCD 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-brand {
+    background: linear-gradient(135deg, #6440F8 0%, #10B981 50%, #418FCD 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .glow-primary   { box-shadow: 0 0 20px rgba(100,64,248,0.4); }
+  .glow-secondary { box-shadow: 0 0 20px rgba(16,185,129,0.4); }
+  .glow-tertiary  { box-shadow: 0 0 20px rgba(65,143,205,0.4); }
+  .glass {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  .glass-dark {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(26,27,30,0.75);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .glass-card {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  .glass-effect {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .airy-shadow {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+/* ── Components ───────────────────────────────────────────────────────────── */
+@layer components {
+  .btn-primary {
+    display: inline-flex; align-items: center; justify-content: center;
+    background-color: var(--color-primary-500);
+    color: #fff; font-family: var(--font-body); font-weight: 600;
+    font-size: var(--text-label-lg); padding: 0.625rem 1.25rem;
+    border-radius: var(--radius-lg); border: none; cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  .btn-primary:hover  { background-color: var(--color-primary-600); }
+  .btn-primary:active { background-color: var(--color-primary-700); }
+
+  .btn-secondary {
+    display: inline-flex; align-items: center; justify-content: center;
+    background-color: var(--color-secondary-500);
+    color: #fff; font-family: var(--font-body); font-weight: 600;
+    font-size: var(--text-label-lg); padding: 0.625rem 1.25rem;
+    border-radius: var(--radius-lg); border: none; cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  .btn-secondary:hover  { background-color: var(--color-secondary-600); }
+  .btn-secondary:active { background-color: var(--color-secondary-700); }
+
+  .btn-inverted {
+    display: inline-flex; align-items: center; justify-content: center;
+    background-color: var(--color-neutral-800);
+    color: #fff; font-family: var(--font-body); font-weight: 600;
+    font-size: var(--text-label-lg); padding: 0.625rem 1.25rem;
+    border-radius: var(--radius-lg); border: none; cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  .btn-inverted:hover  { background-color: var(--color-neutral-700); }
+  .btn-inverted:active { background-color: var(--color-neutral-900); }
+
+  .btn-outlined {
+    display: inline-flex; align-items: center; justify-content: center;
+    background-color: transparent; color: var(--color-primary-500);
+    font-family: var(--font-body); font-weight: 600;
+    font-size: var(--text-label-lg); padding: 0.625rem 1.25rem;
+    border-radius: var(--radius-lg); border: 1.5px solid var(--color-primary-500);
+    cursor: pointer; transition: background-color 0.2s ease;
+  }
+  .btn-outlined:hover  { background-color: var(--color-primary-50); }
+  .btn-outlined:active { background-color: var(--color-primary-100); }
+
+  .card-cyber {
+    background-color: var(--color-card);
+    color: var(--color-card-foreground);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .card-cyber:hover {
+    box-shadow: 0 4px 16px rgba(100,64,248,0.15);
+    border-color: var(--color-primary-200);
+  }
+
+  .section-label {
+    font-family: var(--font-body);
+    font-size: var(--text-label-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-muted-foreground);
+  }
 }

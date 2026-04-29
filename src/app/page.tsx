@@ -1,65 +1,185 @@
 import Image from "next/image";
+import Link from "next/link";
+import { Menu } from "lucide-react";
 
-export default function Home() {
+export default function LandingPage() {
+  const courses = [
+    {
+      title: "Advanced Food Safety & Biosecurity",
+      duration: "12 Weeks",
+      level: "Advanced",
+      price: "₹14,999",
+      image:
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuApIVFtp_h8j2sqZKpaqjgmI7TYl1auD9Hx8hV390IgAPQZX9EUzrr-Cjbv8VKoiVkWmkjh9SuQiIdSVJOWrzdlbVWJkIHTRPUPd2wFAUsfGp5FZQSxNu_t7kfmmfMRVe40Q40HnLbbPkuraEOmIuSY55tBQDlwHvlSq4r45AEEv7E9RZHPPZFJwdfVbYWpzB39BQqo63NnXg2RxbE9s9Xpc-aLuROURN4xppTaWGFeikxgkdLXk1AlieRm05Ztoy2qAoWYIg6Cdcs",
+    },
+    {
+      title: "Dairy Processing Automation",
+      duration: "8 Weeks",
+      level: "Intermediate",
+      price: "₹12,499",
+      image:
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuAlAXxEkk02V8VGFfDr3Hptt-uULUfr5ThKnclmweoH6aFzIJV_Iwxwb6b0xDJNNFtO5SzmjTU76N3DYC9OoSe88zRz5w1gmRh7pFbduM3QpiEh-ju3G6jCDBigLq3fJXqTOwLMWCZaOgJLz0CKpXfM4e0742GS3n6H8K1G_fPJ9MyW5uxy3WazHaIaizPHQtiPgBF_AB0rzI3071ZOTWlizIjVwA2gxOwty0zlH-4814AAT0lDvcCEEuh-fi3k0lJSGf0htkQTCn8",
+    },
+    {
+      title: "Alternative Protein Synthesis",
+      duration: "16 Weeks",
+      level: "Expert",
+      price: "₹18,999",
+      image:
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuBDX-uHoHsQKjnULWJtelz26_yRMKIaKRRAW7_8K00KLT-fB27ZiyX4W1PhGeeZqghxpSJtunKZz07ZIw6x_LMC3bQlZMR0BKIEGrUN4fN4VVYbqC4cJS0aFe2vTByg4snzUmBNxW9Px5UGGrqQIsb6R6Fyg0UaudzKkgkcaAGc1SI4mqf00y9mem3xGQbvoVY5cRUXxwbImV6EVEIktU7W-CwYyX4dDHe8lgCSLdgrvgzfXsWC0EGT7i3GtL2fDA4taTJEVTcHQ1Q",
+    },
+  ];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+    <main className="bg-background text-on-background min-h-screen">
+      {/* Navbar */}
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
+        <nav className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <h1 className="text-xl font-bold text-primary">
+              CulinaraTech
+            </h1>
+          </div>
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex gap-8">
+            <Link href="#">Home</Link>
+            <Link href="#">Courses</Link>
+            <Link href="#">Apprenticeships</Link>
+            <Link href="#">Partners</Link>
+          </div>
+
+          {/* Mobile Menu Icon */}
+          <button className="md:hidden">
+            <Menu size={24} />
+          </button>
+
+          <button className="hidden md:block bg-primary text-white px-5 py-2 rounded-lg">
+            Join Platform
+          </button>
+        </nav>
+      </header>
+
+      {/* Hero Section */}
+      <section className="relative py-20 md:py-32 bg-surface-container-lowest">
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <span className="inline-block bg-primary-fixed px-4 py-2 rounded-full text-sm mb-4">
+              Next-Gen Vocational Training
+            </span>
+
+            <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+              Bridge the Gap. <br />
+              <span className="text-primary">
+                Lead the Industry.
+              </span>
+            </h1>
+
+            <p className="mt-6 text-lg text-on-surface-variant">
+              Master culinary arts with modern engineering and food-tech
+              innovation.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-4">
+              <button className="btn-primary">
+                Explore Courses
+              </button>
+
+              <button className="btn-outlined">
+                Partner With Us
+              </button>
+            </div>
+          </div>
+
+          <div className="relative h-[400px] w-full">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLobF3p9YYI_jvVQMbPcK_G4PS2StAfayFLDq-3EyBPxqko8hQ8piuFNz6iz-CinyZzvyWq1PJOsswfj1suMuJbWisgi59U8S8acgmfusJrvmfOVlUgb5dLyViGOMvRUvH2ZEDXhTkCikUGhyt_OTwJ92QMwf_oAravpy-Ncp3fgQZck8L7TV5dcJW0Ty-pnL5lq4pd4F5YXLaLstC7Lth31rBEKAvOrhkIQcqUU1F4N1pFDyD4g_6rcIREzTv5LU5mRNXqO2lsO0"
+              alt="Hero"
+              fill
+              className="object-cover rounded-3xl"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* Courses Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-3xl font-bold mb-10">
+            Featured Courses
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {courses.map((course, index) => (
+              <div
+                key={index}
+                className="card-cyber p-5 rounded-2xl"
+              >
+                <div className="relative h-56 w-full mb-4">
+                  <Image
+                    src={course.image}
+                    alt={course.title}
+                    fill
+                    className="object-cover rounded-xl"
+                  />
+                </div>
+
+                <p className="text-sm text-gray-500">
+                  {course.duration} • {course.level}
+                </p>
+
+                <h3 className="text-xl font-semibold mt-2">
+                  {course.title}
+                </h3>
+
+                <div className="flex justify-between items-center mt-4">
+                  <span className="text-primary font-bold">
+                    {course.price}
+                  </span>
+
+                  <button className="text-primary font-medium">
+                    Enroll →
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-primary text-white">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <h2 className="text-4xl font-bold mb-4">
+            Real-World Experience at Scale
+          </h2>
+
+          <p className="text-lg text-white/80 max-w-2xl mx-auto">
+            Get connected directly with food-tech companies through
+            apprenticeships and placements.
+          </p>
+
+          <button className="mt-8 bg-white text-primary px-6 py-3 rounded-lg font-semibold">
+            View Placements
+          </button>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-10 bg-slate-100">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          <h3 className="font-bold text-xl">
+            CulinaraTech
+          </h3>
+
+          <div className="flex gap-6 text-sm">
+            <Link href="#">Courses</Link>
+            <Link href="#">Partners</Link>
+            <Link href="#">Privacy</Link>
+            <Link href="#">Terms</Link>
+          </div>
+        </div>
+      </footer>
+    </main>
   );
 }

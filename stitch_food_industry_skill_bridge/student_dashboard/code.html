@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#5c35f3",
+                        "tertiary-container": "#016ba7",
+                        "surface": "#faf9fd",
+                        "secondary": "#006c49",
+                        "on-secondary-fixed": "#002113",
+                        "on-surface": "#1a1b1e",
+                        "inverse-primary": "#c8bfff",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-secondary-fixed-variant": "#005236",
+                        "secondary-container": "#6cf8bb",
+                        "surface-container-low": "#f4f3f7",
+                        "primary-fixed": "#e5deff",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary": "#4b17e3",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#e9e7eb",
+                        "primary-fixed-dim": "#c8bfff",
+                        "on-primary-fixed": "#1a0063",
+                        "on-tertiary-fixed-variant": "#004a76",
+                        "tertiary-fixed": "#cee5ff",
+                        "surface-variant": "#e3e2e6",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#dbd9dd",
+                        "error-container": "#ffdad6",
+                        "on-background": "#1a1b1e",
+                        "outline-variant": "#c9c4d9",
+                        "on-surface-variant": "#484556",
+                        "outline": "#787588",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#d3e7ff",
+                        "inverse-on-surface": "#f2f0f4",
+                        "primary-container": "#6440fb",
+                        "on-primary-container": "#e8e1ff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#001d33",
+                        "on-primary-fixed-variant": "#4300da",
+                        "surface-container-highest": "#e3e2e6",
+                        "inverse-surface": "#2f3033",
+                        "tertiary-fixed-dim": "#96cbff",
+                        "on-secondary-container": "#00714d",
+                        "background": "#faf9fd",
+                        "tertiary": "#005282",
+                        "surface-bright": "#faf9fd",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#efedf1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "md": "16px",
+                        "base": "4px",
+                        "xl": "48px",
+                        "gutter": "20px",
+                        "xs": "4px",
+                        "container-max": "1280px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Space Grotesk"],
+                        "h3": ["Space Grotesk"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "h1": ["Space Grotesk"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h2": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="bg-white/80 backdrop-blur-xl border-b border-slate-200/50 shadow-[0_4px_20px_0_rgba(0,0,0,0.05)] docked full-width top-0 sticky z-50 flex justify-between items-center w-full px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDA6CwNDT_zXQ2OfGwL74RyAfAUmmn8nzh8A2dEjPnSo2c6h-a2eFE7lVge95tTAV70LDZX7QpQe-rgVmCimHs6X4e53Zsb2nStFx3aOK6Q-wVaS8q_xx75ZMhpMhgbf64xRjXFwNi-B1H79gVwoRc3M3CNc3z_70UO_y8yB8tTl6d0Ui-WBeSP-HRfb_7I6016jF9H34_eh_UQy2vxwjCnOGVJ-QuX8FhpIR_gZbW3yvP60ap9LGbt5yoVO_h_ZiSFkVi4_QXRVM"/>
+</div>
+<div>
+<span class="font-['Space_Grotesk'] font-black text-indigo-600 text-xl block leading-tight">Student Hub</span>
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-widest">FoodTech Academy</span>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-indigo-600" data-icon="notifications">notifications</span>
+</button>
+</header>
+<main class="px-6 py-8 max-w-md mx-auto space-y-8">
+<!-- Greeting Section -->
+<section class="space-y-1">
+<h1 class="font-h1 text-[32px] leading-tight text-on-surface">Welcome back, <span class="text-primary">Arjun!</span></h1>
+<p class="text-on-surface-variant font-body-md">You're making great progress in Molecular Gastronomy.</p>
+</section>
+<!-- Learning Progress (Featured Course) -->
+<section class="glass-card rounded-[24px] p-6 shadow-[0_4px_20px_0_rgba(0,0,0,0.05)] border-t-[1.5px] border-white/50 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-8xl" data-icon="restaurant">restaurant</span>
+</div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-6">
+<span class="px-3 py-1 rounded-full bg-secondary-container/30 text-on-secondary-container text-[10px] font-bold uppercase tracking-widest">Active Now</span>
+<span class="text-primary font-h3">72%</span>
+</div>
+<h3 class="font-h3 text-xl mb-1 text-on-surface">Culinary Science &amp; Food Chemistry</h3>
+<p class="text-slate-500 text-sm mb-6">Module 4: Emulsification Techniques</p>
+<div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-secondary-fixed-dim rounded-full" style="width: 72%"></div>
+</div>
+<!-- Granular Progress Tracker -->
+<div class="mt-6 space-y-3">
+<div class="flex justify-between items-center text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+<span>Module Breakdown</span>
+<span>Status</span>
+</div>
+<div class="space-y-2">
+<div class="flex items-center justify-between p-3 bg-white/40 rounded-xl border border-white/60">
+<span class="text-sm font-medium">Module 4: Emulsification</span>
+<span class="text-xs font-bold text-primary bg-primary-container/20 px-2 py-0.5 rounded">80% Done</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-white/40 rounded-xl border border-white/60 opacity-60">
+<span class="text-sm font-medium">Module 5: Hydrocolloids</span>
+<span class="text-xs font-bold text-slate-400 italic">Locked</span>
+</div>
+</div>
+</div>
+<button class="mt-6 w-full py-4 bg-primary text-white rounded-xl font-h3 text-base flex items-center justify-center gap-2 shadow-[0_2px_8px_rgba(75,23,227,0.3)] active:scale-95 transition-transform">
+                Continue Learning
+                <span class="material-symbols-outlined" data-icon="play_circle">play_circle</span>
+</button>
+</div>
+</section>
+<!-- Weekly Activity & Stats -->
+<section class="grid grid-cols-2 gap-4">
+<!-- Weekly Activity Graph -->
+<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest leading-none">Activity</h4>
+<span class="text-[10px] font-bold text-primary">12.5h</span>
+</div>
+<div class="flex items-end justify-between h-16 gap-1 px-1">
+<div class="w-2 bg-slate-100 rounded-t-full h-[40%]"></div>
+<div class="w-2 bg-slate-100 rounded-t-full h-[60%]"></div>
+<div class="w-2 bg-primary/40 rounded-t-full h-[30%]"></div>
+<div class="w-2 bg-primary rounded-t-full h-[90%]"></div>
+<div class="w-2 bg-primary/60 rounded-t-full h-[50%]"></div>
+<div class="w-2 bg-slate-100 rounded-t-full h-[20%]"></div>
+<div class="w-2 bg-slate-100 rounded-t-full h-[45%]"></div>
+</div>
+<p class="text-[9px] text-slate-400 mt-3 text-center">Last 7 days</p>
+</div>
+<!-- Skills Mastered -->
+<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+<h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">Skills Mastered</h4>
+<div class="space-y-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-green-500 text-sm" data-icon="check_circle">check_circle</span>
+<span class="text-[11px] font-medium">Food Safety</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-green-500 text-sm" data-icon="check_circle">check_circle</span>
+<span class="text-[11px] font-medium">Automation</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-300 text-sm" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+<span class="text-[11px] font-medium text-slate-400">Quality Assurance</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-300 text-sm" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+<span class="text-[11px] font-medium text-slate-400">Precision Cooking</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Upcoming Tasks/Deadlines -->
+<section class="space-y-4">
+<div class="flex justify-between items-center">
+<h2 class="font-h2 text-xl">Upcoming Tasks</h2>
+<button class="text-primary font-label-sm">Calendar</button>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-4 p-4 bg-white rounded-2xl border border-red-50 shadow-sm">
+<div class="w-12 h-12 rounded-xl bg-red-50 flex flex-col items-center justify-center flex-shrink-0">
+<span class="text-xs font-bold text-red-600 uppercase">Oct</span>
+<span class="text-lg font-h2 leading-none text-red-600">24</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-sm">Molecular Lab Quiz</h4>
+<p class="text-xs text-slate-500">Culinary Science • 11:59 PM</p>
+</div>
+<span class="px-2 py-1 bg-red-100 text-red-600 rounded text-[9px] font-bold">DUE SOON</span>
+</div>
+<div class="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 shadow-sm">
+<div class="w-12 h-12 rounded-xl bg-slate-50 flex flex-col items-center justify-center flex-shrink-0">
+<span class="text-xs font-bold text-slate-500 uppercase">Oct</span>
+<span class="text-lg font-h2 leading-none text-slate-700">28</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-sm">Supply Chain Essay</h4>
+<p class="text-xs text-slate-500">Sustainability • Reviewing</p>
+</div>
+<span class="material-symbols-outlined text-slate-300" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</section>
+<!-- Community/Peer Activity -->
+<section class="space-y-4">
+<h2 class="font-h2 text-xl">What's happening</h2>
+<div class="bg-indigo-900 rounded-[24px] p-5 text-white overflow-hidden relative">
+<div class="absolute -bottom-4 -right-4 opacity-20">
+<span class="material-symbols-outlined text-7xl" data-icon="groups">groups</span>
+</div>
+<div class="relative z-10 space-y-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full border border-white/30 overflow-hidden">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeF77VL1WMDDP4qCNIMFD9b1NGPiN7w1vaPmuSylZJmRw1lsr-XMLG3uu1C7LHRDZV0z8LoCVpNTNYPmG4Z2KccZDhZ9P14DnbnIwkXyQ-aFW8jP8wT9hfwXI5WS3Iy9M1zDDNx8FDvbrTwO3EB90mfotqIbRtGHUY9Sut_M5OyjiQ9GgQV6D-7s2YQsvdHzDggf5lnqdUfQiO1zmlVa8S1tiFetBLBRlOYOu8LJiqaGDrZpio_QqjrzQa34nud0rl8EqAqr5pEFA"/>
+</div>
+<p class="text-xs">
+<span class="font-bold">Meera K.</span> just unlocked <span class="text-secondary-fixed">Master Saucier</span> badge!
+                    </p>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" data-icon="forum">forum</span>
+</div>
+<p class="text-xs">
+<span class="font-bold">3 new replies</span> in "The Chemistry of Foam" discussion.
+                    </p>
+</div>
+<button class="w-full py-2 bg-white/10 hover:bg-white/20 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors">
+                    Join Discussion
+                </button>
+</div>
+</div>
+</section>
+<!-- My Courses Grid -->
+<section class="space-y-4">
+<div class="flex justify-between items-center">
+<h2 class="font-h2 text-xl">My Courses</h2>
+<button class="text-primary font-label-sm">View All</button>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Course Card 1 -->
+<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+<div class="w-full h-24 rounded-xl mb-3 overflow-hidden">
+<img alt="Food Tech" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBuq_HACgBus9z47R_Lg7Z94gqKsh7NKxx9fL7Ycant5b3Wc4VBAfBYF5pM3biAjbvASMULw7zJxESbdpPTWVbeh36sr7dRKfeialMXNu4oL6RbWYNHqrI3kz9uSJ4zv91vgqgoYxQztQWUKBWM9weJeuSRF_ZAv6RP-NMh5IdXLFTPYruZsVxmCmqgH_mwqXDb-tZG3WOVXPCTt1aO5BmoUc_YdHYL3wK_t5TreV9tV-FTh12tx_CjHJazwcVk6tFgslma4vaZCI"/>
+</div>
+<h4 class="font-h3 text-sm leading-snug mb-3">Sustainable Food Supply Chains</h4>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-secondary" style="width: 45%"></div>
+</div>
+<span class="text-[10px] font-bold text-slate-500">45%</span>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+<div class="w-full h-24 rounded-xl mb-3 overflow-hidden">
+<img alt="Plating" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeF77VL1WMDDP4qCNIMFD9b1NGPiN7w1vaPmuSylZJmRw1lsr-XMLG3uu1C7LHRDZV0z8LoCVpNTNYPmG4Z2KccZDhZ9P14DnbnIwkXyQ-aFW8jP8wT9hfwXI5WS3Iy9M1zDDNx8FDvbrTwO3EB90mfotqIbRtGHUY9Sut_M5OyjiQ9GgQV6D-7s2YQsvdHzDggf5lnqdUfQiO1zmlVa8S1tiFetBLBRlOYOu8LJiqaGDrZpio_QqjrzQa34nud0rl8EqAqr5pEFA"/>
+</div>
+<h4 class="font-h3 text-sm leading-snug mb-3">Modern Plating Aesthetics</h4>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-secondary" style="width: 100%"></div>
+</div>
+<span class="text-[10px] font-bold text-secondary">Done</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Achievements Bento -->
+<section class="space-y-4">
+<h2 class="font-h2 text-xl">Achievements</h2>
+<div class="grid grid-cols-3 gap-3">
+<div class="aspect-square glass-card rounded-2xl flex flex-col items-center justify-center p-2 text-center">
+<div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-amber-600" data-icon="workspace_premium" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<span class="text-[9px] font-bold uppercase text-slate-600">Top Learner</span>
+</div>
+<div class="aspect-square glass-card rounded-2xl flex flex-col items-center justify-center p-2 text-center">
+<div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-indigo-600" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<span class="text-[9px] font-bold uppercase text-slate-600">Fast Mover</span>
+</div>
+<div class="aspect-square glass-card rounded-2xl flex flex-col items-center justify-center p-2 text-center border-dashed border-2 border-slate-200 bg-transparent shadow-none">
+<span class="material-symbols-outlined text-slate-400" data-icon="add">add</span>
+<span class="text-[9px] font-bold uppercase text-slate-400">Locked</span>
+</div>
+</div>
+</section>
+<!-- Recommended / Career -->
+<section class="space-y-4">
+<h2 class="font-h2 text-xl">Recommended for You</h2>
+<div class="space-y-3">
+<div class="bg-white p-4 rounded-2xl flex gap-4 items-center shadow-sm border border-slate-100">
+<div class="w-16 h-16 rounded-xl bg-tertiary-container/10 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-tertiary-container text-3xl" data-icon="work">work</span>
+</div>
+<div class="flex-1">
+<h4 class="font-h3 text-base leading-tight">Product Developer Intern</h4>
+<p class="text-sm text-slate-500">Zomato Culinary Lab • Delhi</p>
+<div class="flex gap-2 mt-2">
+<span class="px-2 py-0.5 bg-slate-100 rounded text-[10px] font-bold text-slate-500">Full-time</span>
+<span class="px-2 py-0.5 bg-green-100 rounded text-[10px] font-bold text-green-700">98% Match</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-white/80 backdrop-blur-xl rounded-t-2xl border-t border-slate-200/50 shadow-[0_-4px_20px_0_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center justify-center text-indigo-600 bg-indigo-50 rounded-xl px-3 py-1 transition-transform duration-150 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-semibold uppercase tracking-wider mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 hover:text-indigo-500 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-semibold uppercase tracking-wider mt-1">My Learning</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 hover:text-indigo-500 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-semibold uppercase tracking-wider mt-1">Certificates</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 hover:text-indigo-500 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="work">work</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-semibold uppercase tracking-wider mt-1">Career</span>
+</a>
+</nav>
+</body></html>
