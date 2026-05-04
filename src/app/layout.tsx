@@ -3,6 +3,7 @@
 
 import type { Metadata, Viewport } from "next";
 import { fontVariables } from "@/lib/fonts";
+import { Providers } from "@/app/providers";
 import "@/app/globals.css";
 
 export const metadata: Metadata = {
@@ -43,15 +44,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-background font-body antialiased">
-        {/*
-          Wrap with <ThemeProvider> here if using next-themes:
-
-          import { ThemeProvider } from "next-themes"
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            {children}
-          </ThemeProvider>
-        */}
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );
