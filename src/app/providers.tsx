@@ -3,6 +3,7 @@
 import { ReactNode, useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Toaster } from 'sonner';
 import { useAuthStore } from '@/lib/stores/auth.store';
 import { authApi } from '@/lib/api/auth.api';
 
@@ -45,6 +46,7 @@ export function Providers({ children }: { children: ReactNode }) {
       {process.env.NODE_ENV === 'development' && (
         <ReactQueryDevtools initialIsOpen={false} />
       )}
+      <Toaster position="top-right" />
     </QueryClientProvider>
   );
 }

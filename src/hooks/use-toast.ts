@@ -1,22 +1,36 @@
 import { useCallback } from 'react';
-
-interface Toast {
-  title: string;
-  description?: string;
-  variant?: 'default' | 'destructive';
-}
+import { toast as sonnerToast } from 'sonner';
 
 export function useToast() {
-  const toast = useCallback((props: Toast) => {
-    // Simple implementation - log to console for now
-    // In production, this would integrate with a toast UI library
-    const message = `${props.title}${props.description ? ': ' + props.description : ''}`;
-    if (props.variant === 'destructive') {
-      console.error(message);
-    } else {
-      console.log(message);
-    }
+  const success = useCallback((message: string, description?: string) => {
+    sonnerToast.success(message, {
+      description,
+    });
   }, []);
 
-  return { toast };
+  const error = useCallback((message: string, description?: string) => {
+    sonnerToast.error(message, {
+      description,
+    });
+  }, []);
+
+  const info = useCallback((message: string, description?: string) => {
+    sonnerToast.info(message, {
+      description,
+    });
+  }, []);
+
+  const warning = useCallback((message: string, description?: string) => {
+    sonnerToast.warning(message, {
+      description,
+    });
+  }, []);
+
+  const loading = useCallback((message: string, description?: string) => {
+    return sonnerToast.loading(message, {
+      description,
+    });
+  }, []);
+
+  return { success, error, info, warning, loading };
 }

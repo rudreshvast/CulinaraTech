@@ -11,6 +11,10 @@ export function useLogin() {
     onSuccess: (response) => {
       const { accessToken, refreshToken, user } = response.data.data;
       useAuthStore.getState().setAuth(user, accessToken, refreshToken);
+
+      // Set token in cookie for middleware access
+      document.cookie = `accessToken=${accessToken}; path=/; max-age=86400`;
+      document.cookie = `refreshToken=${refreshToken}; path=/; max-age=604800`;
     },
   });
 }
@@ -21,6 +25,10 @@ export function useRegister() {
     onSuccess: (response) => {
       const { accessToken, refreshToken, user } = response.data.data;
       useAuthStore.getState().setAuth(user, accessToken, refreshToken);
+
+      // Set token in cookie for middleware access
+      document.cookie = `accessToken=${accessToken}; path=/; max-age=86400`;
+      document.cookie = `refreshToken=${refreshToken}; path=/; max-age=604800`;
     },
   });
 }

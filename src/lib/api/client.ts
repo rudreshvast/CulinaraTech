@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useAuthStore } from '../stores/auth.store';
 
 const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   headers: { 'Content-Type': 'application/json' },
 });
 
@@ -35,7 +35,7 @@ apiClient.interceptors.response.use(
         }
 
         const { data } = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/refresh`,
           { refreshToken }
         );
 
