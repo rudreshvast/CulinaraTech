@@ -1,4 +1,6 @@
-import { Navbar } from '@/components/layout/Navbar';
+import Navbar from "@/components/ui/navbar";
+
+export const dynamic = 'force-dynamic';
 
 export default function ProtectedLayout({
   children,
@@ -7,7 +9,7 @@ export default function ProtectedLayout({
 }) {
   return (
     <>
-      <Navbar />
+      <Navbar/>
       <main>{children}</main>
     </>
   );

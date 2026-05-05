@@ -2,20 +2,36 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { usePathname } from "next/navigation";
-import { Home, BookOpen, Briefcase, Users } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { Home, BookOpen, Award, User, LogOut } from "lucide-react";
+import { useAuthStore } from "@/lib/stores/auth.store";
+import { useLogout } from "@/lib/hooks/useAuth";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 import {
   NavigationMenu,
   NavigationMenuList,
   NavigationMenuItem,
-  NavigationMenuTrigger,
-  NavigationMenuContent,
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const { isAuthenticated, user } = useAuthStore();
+  const { mutate: logout } = useLogout();
+
+  const handleLogout = () => {
+    logout();
+    router.push("/");
+  };
+
   return (
     <>
       {/* ---------------- DESKTOP TOP NAV ---------------- */}
@@ -23,7 +39,7 @@ export default function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="hidden md:block bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200/50 shadow-[0_4px_20px_rgba(0,0,0,0.05)]"
+        className="hidden md:block bg-card/80 dark:bg-card/60 backdrop-blur-md sticky top-0 z-50 border-b border-border shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.30)]"
       >
         <nav className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center w-full">
           {/* Logo */}
@@ -45,17 +61,17 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <NavigationMenu viewport={false}>
-            <NavigationMenuList className="gap-6 font-['Space_Grotesk'] text-sm">
+            <NavigationMenuList className="gap-8 font-['Space_Grotesk'] text-sm">
               <NavigationMenuItem>
                 <Link
-                  href="/"
-                 className={`pb-1 ${
-                    pathname == "/"
+                  href={isAuthenticated ? "/dashboard" : "/"}
+                  className={`pb-1 ${
+                    (isAuthenticated ? pathname === "/dashboard" : pathname === "/")
                       ? "text-[#6440FB] font-bold border-b-2 border-[#6440FB]"
-                      : "text-black font-medium"
+                      : "text-foreground font-medium hover:text-[#6440FB]"
                   }`}
                 >
-                  Home
+                  {isAuthenticated ? "Dashboard" : "Home"}
                 </Link>
               </NavigationMenuItem>
 
@@ -63,74 +79,112 @@ export default function Navbar() {
                 <Link
                   href="/courses"
                   className={`pb-1 ${
-                    pathname == "/courses"
+                    pathname.startsWith("/courses")
                       ? "text-[#6440FB] font-bold border-b-2 border-[#6440FB]"
-                      : "text-black font-medium"
+                      : "text-foreground font-medium hover:text-[#6440FB]"
                   }`}
                 >
                   Courses
                 </Link>
               </NavigationMenuItem>
 
-              {/* <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent hover:bg-transparent">
-                  Courses
-                </NavigationMenuTrigger>
-
-                <NavigationMenuContent className="p-3 min-w-[220px]">
-                  <div className="flex flex-col gap-2">
-                    <NavigationMenuLink asChild>
-                      <Link href="/courses/food-safety">
-                        Food Safety
-                      </Link>
-                    </NavigationMenuLink>
-
-                    <NavigationMenuLink asChild>
-                      <Link href="/courses/dairy">
-                        Dairy Processing
-                      </Link>
-                    </NavigationMenuLink>
-
-                    <NavigationMenuLink asChild>
-                      <Link href="/courses/protein">
-                        Protein Synthesis
-                      </Link>
-                    </NavigationMenuLink>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem> */}
-
               <NavigationMenuItem>
                 <Link
-                  href="/apprenticeships"
-                  className="text-black hover:text-[#6440FB]"
+                  href="/training"
+                  className={`pb-1 ${
+                    pathname.startsWith("/training")
+                      ? "text-[#6440FB] font-bold border-b-2 border-[#6440FB]"
+                      : "text-foreground font-medium hover:text-[#6440FB]"
+                  }`}
                 >
-                  Apprenticeships
+                  Training
                 </Link>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
                 <Link
-                  href="/partners"
-                  className="text-black hover:text-[#6440FB]"
+                  href="/internship"
+                  className={`pb-1 ${
+                    pathname.startsWith("/internship")
+                      ? "text-[#6440FB] font-bold border-b-2 border-[#6440FB]"
+                      : "text-foreground font-medium hover:text-[#6440FB]"
+                  }`}
                 >
-                  Partners
+                  Internships
+                </Link>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <Link
+                  href="/opportunities"
+                  className={`pb-1 ${
+                    pathname.startsWith("/opportunities")
+                      ? "text-[#6440FB] font-bold border-b-2 border-[#6440FB]"
+                      : "text-foreground font-medium hover:text-[#6440FB]"
+                  }`}
+                >
+                  Opportunities
                 </Link>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
 
-          {/* CTA */}
-          <motion.button
-            whileHover={{
-              scale: 1.05,
-              boxShadow: "0px 8px 20px rgba(100,64,251,0.35)",
-            }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-[#6440FB] text-white px-6 py-2 rounded-lg text-sm font-bold"
-          >
-            Join Platform
-          </motion.button>
+          {/* Right Side - Auth Buttons */}
+          <div className="flex items-center gap-4">
+            <ThemeToggle />
+            {isAuthenticated ? (
+              <div className="flex items-center gap-3">
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => router.push("/dashboard")}
+                  className="w-10 h-10 rounded-full bg-[#6440FB] flex items-center justify-center text-white text-sm font-bold hover:shadow-lg transition"
+                >
+                  {user?.name
+                    ?.split(' ')
+                    .map((n) => n[0])
+                    .join('')
+                    .toUpperCase() || 'U'}
+                </motion.button>
+
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleLogout}
+                  className="p-2 hover:bg-muted rounded-lg transition"
+                  title="Logout"
+                >
+                  <LogOut size={20} className="text-[#6440FB]" />
+                </motion.button>
+              </div>
+            ) : (
+              <>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link
+                    href="/auth/login"
+                    className="text-foreground font-medium px-4 py-2 hover:text-[#6440FB] transition"
+                  >
+                    Login
+                  </Link>
+                </motion.div>
+
+                <motion.button
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: "0px 8px 20px rgba(100,64,251,0.35)",
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => router.push("/auth/signup")}
+                  className="bg-[#6440FB] text-white px-6 py-2 rounded-lg text-sm font-bold"
+                >
+                  Get Started
+                </motion.button>
+              </>
+            )}
+          </div>
         </nav>
       </motion.header>
 
@@ -139,7 +193,7 @@ export default function Navbar() {
         initial={{ y: -60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4 }}
-        className="md:hidden bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200/50 shadow-[0_4px_20px_rgba(0,0,0,0.05)]"
+        className="md:hidden bg-card/80 dark:bg-card/60 backdrop-blur-md sticky top-0 z-50 border-b border-border shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.30)]"
       >
         <div className="px-5 py-4 flex items-center gap-2">
           <motion.span
@@ -160,24 +214,74 @@ export default function Navbar() {
         transition={{ duration: 0.4 }}
         className="md:hidden fixed bottom-0 left-0 right-0 z-50"
       >
-        <div className="mx-4 mb-4 rounded-2xl bg-white/90 backdrop-blur-xl border border-white/30 shadow-2xl px-4 py-3">
+        <div className="mx-4 mb-4 rounded-2xl bg-card/90 dark:bg-card/80 backdrop-blur-xl border border-border dark:border-border shadow-2xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] px-4 py-3">
           <div className="flex justify-between items-center">
-            <NavItem icon={<Home size={20} />} label="Home" href="/" active />
+            <NavItem
+              icon={<Home size={20} />}
+              label={isAuthenticated ? "Dashboard" : "Home"}
+              href={isAuthenticated ? "/dashboard" : "/"}
+              active={isAuthenticated ? pathname === "/dashboard" : pathname === "/"}
+            />
             <NavItem
               icon={<BookOpen size={20} />}
               label="Courses"
               href="/courses"
+              active={pathname.startsWith("/courses")}
             />
-            <NavItem
-              icon={<Briefcase size={20} />}
-              label="Jobs"
-              href="/apprenticeships"
-            />
-            <NavItem
-              icon={<Users size={20} />}
-              label="Partners"
-              href="/partners"
-            />
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex flex-col items-center gap-1">
+                <Award size={20} className={pathname.startsWith("/internship") || pathname.startsWith("/training") || pathname.startsWith("/opportunities") ? "text-[#6440FB]" : "text-muted-foreground"} />
+                <span className={`text-xs font-medium ${pathname.startsWith("/internship") || pathname.startsWith("/training") || pathname.startsWith("/opportunities") ? "text-[#6440FB]" : "text-muted-foreground"}`}>Career</span>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="mb-20">
+                <DropdownMenuItem asChild>
+                  <Link href="/internship" className="flex items-center cursor-pointer">
+                    Internships
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/training" className="flex items-center cursor-pointer">
+                    Training
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/opportunities" className="flex items-center cursor-pointer">
+                    Jobs
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            {isAuthenticated ? (
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                onClick={() => router.push("/profile")}
+                className="flex flex-col items-center gap-1"
+              >
+                <div className="w-6 h-6 rounded-full bg-[#6440FB] flex items-center justify-center text-white text-xs font-bold overflow-hidden">
+                  {user?.avatarUrl ? (
+                    <img
+                      src={user.avatarUrl}
+                      alt={user.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <span>{user?.name?.[0]?.toUpperCase()}</span>
+                  )}
+                </div>
+                <span className="text-xs font-medium text-foreground">Profile</span>
+              </motion.button>
+            ) : (
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                onClick={() => router.push("/auth/signup")}
+                className="flex flex-col items-center gap-1"
+              >
+                <div className="w-6 h-6 rounded-full bg-[#6440FB] flex items-center justify-center text-white text-xs font-bold">
+                  +
+                </div>
+                <span className="text-xs font-medium text-foreground">Sign Up</span>
+              </motion.button>
+            )}
           </div>
         </div>
       </motion.div>
@@ -185,7 +289,6 @@ export default function Navbar() {
   );
 }
 
-/* Mobile Nav Item */
 function NavItem({
   icon,
   label,
@@ -202,13 +305,11 @@ function NavItem({
       <motion.div
         whileTap={{ scale: 0.9 }}
         className={`flex flex-col items-center gap-1 ${
-          active ? "text-[#6440FB]" : "text-slate-500"
+          active ? "text-[#6440FB]" : "text-muted-foreground"
         }`}
       >
         {icon}
-
         <span className="text-xs font-medium">{label}</span>
-
         {active && (
           <motion.div
             layoutId="mobileIndicator"

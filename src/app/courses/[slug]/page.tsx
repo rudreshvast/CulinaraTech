@@ -1,25 +1,23 @@
-import Link from "next/link";
+'use client';
+
 import { notFound } from "next/navigation";
+import { useState, use } from "react";
+import { Star, Check, Play } from "lucide-react";
 import Navbar from "@/components/ui/navbar";
+import { LoginRequiredModal } from "@/components/auth/LoginRequiredModal";
+import { useAuthStore } from "@/lib/stores/auth.store";
 import { courses, featuredCourseSlug } from "@/lib/course-data";
 
-type CourseDetailsPageProps = {
-  params: Promise<{
-    slug: string;
-  }>;
-};
-
-const curriculum = [
-  "Introduction to Food Safety",
-  "Microbiological Risks & Control",
-  "Automation in Quality Assurance",
-  "Industrial Case Studies",
-];
-
-export default async function CourseDetailsPage({
+export default function CourseDetailsPage({
   params,
-}: CourseDetailsPageProps) {
-  const { slug } = await params;
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = use(params);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [expandedSection, setExpandedSection] = useState(0);
+  const { isAuthenticated } = useAuthStore();
+
   const course =
     courses.find((item) => item.slug === slug) ??
     courses.find((item) => item.slug === featuredCourseSlug);
@@ -28,193 +26,359 @@ export default async function CourseDetailsPage({
     notFound();
   }
 
+  const handleEnroll = () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+    console.log('Enrolling in course:', course.title);
+  };
+
+  const discount = course.originalPrice
+    ? Math.round(
+        (1 - parseInt(course.price.replace(/[₹,]/g, "")) /
+             parseInt(course.originalPrice.replace(/[₹,]/g, ""))) * 100
+      )
+    : 0;
+
   return (
-    <main className="bg-background font-body-md text-on-surface min-h-screen pb-28">
+    <main className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-background">
+      <LoginRequiredModal
+        open={showLoginModal}
+        onOpenChange={setShowLoginModal}
+        title="Login to Enroll"
+        description="Please login to your account to enroll in this course and access all learning materials."
+      />
       <Navbar />
 
-      <section className="relative h-[380px] md:h-[500px] w-full overflow-hidden">
-        <img
-          src={course.image}
-          alt={course.title}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/25 to-transparent" />
-        <div className="absolute bottom-0 left-0 p-6 w-full">
-          <div className="flex flex-col gap-2">
-            <span className="bg-primary-container text-on-primary-container w-fit px-4 py-1 rounded-full text-label-sm uppercase tracking-wider">
-              {course.level} Certification
-            </span>
-            <h2 className="font-h1 text-h1 text-on-surface max-w-3xl">
-              {course.title}
-            </h2>
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-blue-700">
+        <div className="absolute inset-0 opacity-5" style={{
+          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)',
+          backgroundSize: '32px 32px'
+        }} />
+
+        <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 relative z-10">
+          <div className="flex flex-col lg:flex-row gap-12 items-start">
+            {/* Left: Content */}
+            <div className="flex-1 text-white">
+              <div className="flex gap-3 mb-6 flex-wrap">
+                <span className="inline-block px-3 py-1.5 bg-blue-500/20 text-blue-300 text-xs font-bold uppercase tracking-wider rounded-full border border-blue-400/30">
+                  {course.category}
+                </span>
+                <span style={{
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  padding: '4px 12px',
+                  borderRadius: '9999px',
+                  background: `#1e40af22`,
+                  color: '#60a5fa',
+                  border: '1px solid #0c4a6e',
+                }} className="inline-block uppercase tracking-wider">
+                  {course.level}
+                </span>
+                {course.badge && (
+                  <span style={{
+                    fontSize: '12px',
+                    fontWeight: 700,
+                    padding: '4px 12px',
+                    borderRadius: '9999px',
+                    background: '#f59e0b22',
+                    color: '#fbbf24',
+                    border: '1px solid #92400e',
+                  }} className="inline-block uppercase tracking-wider">
+                    {course.badge}
+                  </span>
+                )}
+              </div>
+
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                {course.title}
+              </h1>
+
+              <p className="text-lg text-slate-300 mb-6 leading-relaxed max-w-2xl">
+                {course.overview}
+              </p>
+
+              {/* Instructor */}
+              <div className="flex items-center gap-3 mb-8">
+                <img
+                  src={course.instructor.picture}
+                  alt={course.instructor.name}
+                  className="w-10 h-10 rounded-full object-cover border-2 border-blue-400/50"
+                />
+                <span className="text-sm text-slate-300">
+                  Created by{' '}
+                  <span className="text-blue-300 font-semibold">{course.instructor.name}</span>
+                </span>
+              </div>
+
+              {/* Stats */}
+              <div className="flex flex-wrap gap-6 text-sm">
+                <div className="flex items-center gap-2">
+                  <div className="flex">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        size={14}
+                        className={i < 5 ? 'fill-yellow-400 text-yellow-400' : 'text-slate-500'}
+                      />
+                    ))}
+                  </div>
+                  <span className="text-yellow-300 font-semibold">4.8</span>
+                  <span className="text-slate-400">(12k reviews)</span>
+                </div>
+                <span className="text-slate-400">
+                  <span className="text-slate-300 font-semibold">8.5K+</span> students
+                </span>
+                <span className="text-slate-400">
+                  <span className="text-slate-300 font-semibold">{course.duration}</span>
+                </span>
+              </div>
+            </div>
+
+            {/* Right: Price Card */}
+            <div className="w-full lg:w-80 flex-shrink-0">
+              <div className="bg-white rounded-xl overflow-hidden shadow-2xl">
+                <img
+                  src={course.image}
+                  alt={course.title}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <div className="flex items-baseline gap-2 mb-2">
+                    <span className="text-3xl font-bold text-slate-900">
+                      {course.price}
+                    </span>
+                    {course.originalPrice && (
+                      <>
+                        <span className="text-sm text-slate-500 line-through">
+                          {course.originalPrice}
+                        </span>
+                        <span className="text-xs font-bold bg-amber-100 text-amber-800 px-2 py-1 rounded">
+                          {discount}% OFF
+                        </span>
+                      </>
+                    )}
+                  </div>
+
+                  <div className="flex gap-2 flex-wrap mb-4">
+                    {[
+                      { label: course.duration },
+                      { label: course.level },
+                      { label: '4 modules' }
+                    ].map((item, i) => (
+                      <span key={i} className="text-xs bg-slate-100 text-slate-700 px-3 py-1.5 rounded border border-slate-200">
+                        {item.label}
+                      </span>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={handleEnroll}
+                    className="w-full py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-all mb-3 active:scale-95"
+                  >
+                    Enroll Now
+                  </button>
+
+                  <button className="w-full py-2.5 border-2 border-slate-300 text-slate-700 font-semibold rounded-lg hover:bg-slate-50 transition-all">
+                    Try for Free
+                  </button>
+
+                  <p className="text-xs text-slate-500 text-center mt-3">
+                    30-day money-back guarantee • Lifetime access
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="max-w-[1280px] mx-auto px-6 mt-4 grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-8 flex flex-col gap-8">
-          <div className="grid grid-cols-3 gap-4">
-            <div className="glass-card airy-shadow p-4 rounded-xl flex flex-col items-center justify-center text-center border-t-2 border-t-secondary-fixed-dim">
-              <span className="material-symbols-outlined text-primary mb-2">
-                calendar_today
-              </span>
-              <span className="font-h3 text-h3 block">
-                {course.duration.split(" ")[0]}
-              </span>
-              <span className="text-label-sm text-outline">Weeks</span>
-            </div>
-            <div className="glass-card airy-shadow p-4 rounded-xl flex flex-col items-center justify-center text-center">
-              <span className="material-symbols-outlined text-primary mb-2">
-                signal_cellular_alt
-              </span>
-              <span className="font-h3 text-h3 block">{course.level}</span>
-              <span className="text-label-sm text-outline">Level</span>
-            </div>
-            <div className="glass-card airy-shadow p-4 rounded-xl flex flex-col items-center justify-center text-center">
-              <span className="material-symbols-outlined text-primary mb-2">
-                group
-              </span>
-              <span className="font-h3 text-h3 block">500+</span>
-              <span className="text-label-sm text-outline">Enrolled</span>
-            </div>
-          </div>
-
-          <article className="flex flex-col gap-4">
-            <h3 className="font-h3 text-h3 text-on-surface border-l-4 border-secondary-fixed-dim pl-4">
-              Overview
-            </h3>
-            <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-              {course.overview}
-            </p>
-          </article>
-
-          <div className="flex flex-col gap-4">
-            <h3 className="font-h3 text-h3 text-on-surface">Curriculum</h3>
-            <div className="space-y-2">
-              {curriculum.map((module, index) => (
-                <div
-                  key={module}
-                  className={`glass-card airy-shadow rounded-xl overflow-hidden ${
-                    index === 2 ? "border-l-4 border-secondary-fixed-dim" : ""
-                  }`}
-                >
-                  <div
-                    className={`w-full p-4 flex items-center justify-between ${
-                      index === 2 ? "bg-surface-container-low" : ""
-                    }`}
-                  >
-                    <span className="font-label-sm text-label-sm flex items-center gap-4">
-                      <span
-                        className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                          index === 2
-                            ? "bg-primary text-on-primary"
-                            : "bg-primary-fixed text-primary"
-                        }`}
-                      >
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                      {module}
-                    </span>
-                    <span
-                      className={`material-symbols-outlined ${
-                        index === 2 ? "rotate-180" : ""
-                      }`}
-                    >
-                      expand_more
-                    </span>
-                  </div>
-                  {index === 2 ? (
-                    <div className="p-4 bg-white text-on-surface-variant border-t border-outline-variant/30">
-                      <ul className="space-y-1 list-disc pl-5 text-body-md">
-                        <li>AI-driven contamination detection</li>
-                        <li>Robotic sampling in high-risk zones</li>
-                        <li>Blockchain for supply chain transparency</li>
-                      </ul>
-                    </div>
-                  ) : null}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="glass-card airy-shadow p-6 rounded-2xl flex flex-col md:flex-row gap-6 items-center">
-            <img
-              alt={course.instructor}
-              className="w-28 h-28 rounded-2xl object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuChFclTYynUZFp3mU-bIXxPEFkD7tYQ7I6Up-lEUISpnH0aQeuu6YwVFqvTEUcsFWanboqYW-LRV5xTZRL7jTdUOBF7sR5UGAX5lyyJNMRTs0Cvuk5pki9eFTjA1eNpGL_T4hnbsYPthdiz7yL-0CIVcloBsPtmRYvpaCDx2Tjn_d9lVVJ-g2157NIMYkqa0h3qAOlkQeNgnP7e8v3yxOph6uH7sszcu1os00DNdk3hu4RIjztZQ4VogCJfz9bQ3a3lvPbXxxKxkDM"
-            />
-            <div className="flex-1 text-center md:text-left">
-              <h4 className="font-h3 text-h3 text-on-surface">
-                {course.instructor}
-              </h4>
-              <p className="text-primary font-semibold mb-2">
-                Mentor at {course.partner}
-              </p>
-              <p className="text-on-surface-variant text-body-md">
-                Industry-led guidance focused on real production workflows,
-                compliance, and practical implementation.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <aside className="lg:col-span-4">
-          <div className="sticky top-24 glass-card airy-shadow p-6 rounded-3xl border-t-4 border-t-primary-container">
-            <div className="flex flex-col gap-4">
-              <div className="flex items-baseline justify-between">
-                <span className="text-label-sm text-outline">
-                  Full Course Access
-                </span>
-                {course.originalPrice ? (
-                  <span className="bg-error-container text-on-error-container px-2 py-0.5 rounded text-[12px] font-bold">
-                    20% OFF
-                  </span>
-                ) : null}
-              </div>
-              <div className="flex flex-col">
-                <span className="text-h1 font-h1 text-on-surface">
-                  {course.price}
-                </span>
-                {course.originalPrice ? (
-                  <span className="text-outline line-through text-body-md">
-                    {course.originalPrice}
-                  </span>
-                ) : null}
-              </div>
-              <div className="space-y-2 my-2">
+      {/* Main Content */}
+      <div className="max-w-6xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* Left Column */}
+          <div className="lg:col-span-2 space-y-12">
+            {/* What you'll learn */}
+            <section className="bg-white border border-slate-200 rounded-2xl p-8">
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">
+                What you'll learn
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
-                  "Lifetime access to lectures",
-                  "1-on-1 mentorship session",
-                  "Industry recognized certificate",
-                ].map((benefit) => (
-                  <div
-                    key={benefit}
-                    className="flex items-center gap-2 text-on-surface-variant"
-                  >
-                    <span className="material-symbols-outlined text-secondary text-[20px]">
-                      check_circle
-                    </span>
-                    <span className="text-body-md">{benefit}</span>
+                  "Master HACCP principles and food safety frameworks",
+                  "Conduct internal audits and GMP compliance reviews",
+                  "Write non-conformance reports and CAPA documents",
+                  "Apply root cause analysis techniques",
+                  "Design HACCP plans for product launches",
+                  "Prepare facilities for third-party audits"
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-3">
+                    <Check size={20} className="text-green-600 flex-shrink-0 mt-1" />
+                    <span className="text-slate-700 text-sm leading-relaxed">{item}</span>
                   </div>
                 ))}
               </div>
-              <button className="w-full bg-primary-container text-on-primary-container py-4 rounded-xl font-bold text-lg airy-shadow hover:bg-primary transition-all active:scale-95 flex items-center justify-center gap-4">
-                Enroll Now
-                <span className="material-symbols-outlined">trending_flat</span>
-              </button>
-              <p className="text-center text-label-sm text-outline mt-1">
-                7-day money back guarantee
+            </section>
+
+            {/* Course Content */}
+            <section>
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">
+                Course content
+              </h2>
+              <div className="space-y-3">
+                {[
+                  {
+                    title: 'Foundations of Food Safety Management',
+                    lessons: 3,
+                    duration: '105 mins',
+                    details: ['Food safety management systems overview', 'GMP and GHP as prerequisite programs', 'ISO 22000 vs FSSC 22000 vs BRC']
+                  },
+                  {
+                    title: 'HACCP Principles in Depth',
+                    lessons: 5,
+                    duration: '175 mins',
+                    details: ['Hazard analysis: biological, chemical, physical', 'Determining critical control points (CCPs)', 'Setting critical limits and monitoring procedures']
+                  },
+                  {
+                    title: 'Internal Auditing and Non-Conformance',
+                    lessons: 4,
+                    duration: '155 mins',
+                    details: ['Planning and conducting internal audits', 'Writing non-conformance reports (NCRs)', 'Root cause analysis tools: 5-Why, fishbone']
+                  },
+                ].map((section, i) => (
+                  <div key={i} className="border border-slate-200 rounded-lg overflow-hidden bg-white">
+                    <button
+                      onClick={() => setExpandedSection(expandedSection === i ? -1 : i)}
+                      className="w-full p-5 flex items-center justify-between hover:bg-slate-50 transition-colors text-left"
+                    >
+                      <div className="flex items-center gap-4 flex-1">
+                        <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 font-bold flex items-center justify-center flex-shrink-0">
+                          {i + 1}
+                        </div>
+                        <div>
+                          <div className="font-semibold text-slate-900">{section.title}</div>
+                          <div className="text-xs text-slate-500 mt-1">
+                            {section.lessons} lessons • {section.duration}
+                          </div>
+                        </div>
+                      </div>
+                      <svg
+                        className={`w-5 h-5 text-slate-400 transition-transform ${expandedSection === i ? 'rotate-180' : ''}`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                      </svg>
+                    </button>
+
+                    {expandedSection === i && (
+                      <div className="px-5 pb-4 border-t border-slate-100 space-y-2">
+                        {section.details.map((detail, j) => (
+                          <div key={j} className="flex gap-3 py-2">
+                            <Play size={14} className="text-slate-400 flex-shrink-0 mt-1" />
+                            <span className="text-sm text-slate-700">{detail}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Description */}
+            <section>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">
+                Description
+              </h2>
+              <p className="text-slate-700 leading-relaxed">
+                {course.overview} Food safety is not optional – it is the foundation of every successful food business. This intermediate-level course gives you a thorough grounding in HACCP methodology, GMP auditing, and the compliance frameworks that govern food production globally.
               </p>
-              <Link
-                href="/courses"
-                className="text-center text-primary text-sm font-semibold"
-              >
-                Back to catalog
-              </Link>
-            </div>
+            </section>
+
+            {/* Requirements */}
+            <section className="bg-white border border-slate-200 rounded-2xl p-8">
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">
+                Requirements
+              </h2>
+              <ul className="space-y-3">
+                {[
+                  "Basic knowledge of food processing or manufacturing operations",
+                  "Familiarity with food regulations is helpful but not mandatory",
+                  "Ability to read and interpret process flow diagrams",
+                  "Minimum 6 months of work experience in food industry preferred"
+                ].map((req, i) => (
+                  <li key={i} className="flex gap-3 text-slate-700">
+                    <span className="text-blue-600 text-lg flex-shrink-0">•</span>
+                    <span>{req}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            {/* Who this course is for */}
+            <section className="bg-blue-50 border border-blue-200 rounded-2xl p-8">
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">
+                Who this course is for
+              </h2>
+              <ul className="space-y-3">
+                {[
+                  "Quality assurance and quality control executives",
+                  "Production supervisors and plant managers",
+                  "Food safety consultants and auditors",
+                  "Students pursuing careers in food technology",
+                  "Restaurant and catering managers"
+                ].map((who, i) => (
+                  <li key={i} className="flex gap-3 text-slate-700">
+                    <span className="text-blue-600">✓</span>
+                    <span>{who}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
           </div>
-        </aside>
-      </section>
+
+          {/* Right Sidebar */}
+          <div>
+            {/* Instructor Card */}
+            <section className="bg-white border border-slate-200 rounded-2xl p-8 sticky top-24">
+              <h2 className="text-xl font-bold text-slate-900 mb-6">
+                Your instructor
+              </h2>
+              <div className="text-center">
+                <img
+                  src={course.instructor.picture}
+                  alt={course.instructor.name}
+                  className="w-20 h-20 rounded-full mx-auto mb-4 object-cover border-3 border-slate-200"
+                />
+                <h3 className="font-bold text-slate-900 text-lg">{course.instructor.name}</h3>
+                <p className="text-sm text-slate-600 mb-4">{course.instructor.title}</p>
+
+                <div className="grid grid-cols-2 gap-4 mb-6 text-center">
+                  {[
+                    { label: 'Rating', value: course.instructor.rating.toFixed(1) },
+                    { label: 'Reviews', value: (course.instructor.reviews / 1000).toFixed(0) + 'K+' },
+                    { label: 'Students', value: (course.instructor.students / 1000).toFixed(0) + 'K+' },
+                    { label: 'Courses', value: course.instructor.courses }
+                  ].map((stat, i) => (
+                    <div key={i}>
+                      <div className="font-bold text-slate-900">{stat.value}</div>
+                      <div className="text-xs text-slate-500">{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  {course.instructor.bio}
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
     </main>
   );
 }

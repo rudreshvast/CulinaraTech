@@ -8,22 +8,26 @@ import "@/app/globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Cyber Culinary",
-    template: "%s | Cyber Culinary",
+    default: "HospitalityLearn",
+    template: "%s | HospitalityLearn",
   },
-  description: "Where technology meets the art of cooking.",
-  keywords: ["food", "recipes", "culinary", "tech", "cooking"],
+  description: "Learn hospitality skills for your career.",
+  keywords: ["hospitality", "education", "courses", "training"],
+  manifest: "/manifest.json",
   openGraph: {
     type: "website",
-    siteName: "Cyber Culinary",
+    siteName: "HospitalityLearn",
   },
 };
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f9f9fb" },
+    { media: "(prefers-color-scheme: light)", color: "#faf9fd" },
     { media: "(prefers-color-scheme: dark)",  color: "#1A1B1E" },
   ],
+  viewportFit: "cover",
+  initialScale: 1,
+  width: "device-width",
 };
 
 export default function RootLayout({
@@ -38,6 +42,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"

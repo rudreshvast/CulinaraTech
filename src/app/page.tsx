@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import Navbar from "@/components/ui/navbar";
+import { Footer } from "@/components/layout/Footer";
 
 export default function LandingPage() {
   const courses = [
@@ -260,18 +261,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="py-10 bg-slate-100">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <h3 className="font-bold text-xl">CulinaraTech</h3>
-
-          <div className="flex gap-6 text-sm">
-            <Link href="#">Courses</Link>
-            <Link href="#">Partners</Link>
-            <Link href="#">Privacy</Link>
-            <Link href="#">Terms</Link>
-          </div>
-        </div>
-      </footer>
+      <Footer/>
     </main>
   );
 }

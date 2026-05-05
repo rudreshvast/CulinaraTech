@@ -1,0 +1,408 @@
+'use client';
+
+import Image from 'next/image';
+import { useRef, useState } from 'react';
+import { useAuthStore } from '@/lib/stores/auth.store';
+import { Star, LucideIcon, ChevronLeft, ChevronRight } from 'lucide-react';
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+import { GAUGES, COURSES, TRENDING_COURSES, BESTSELLER_COURSES, OPPORTUNITIES, TIMELINE } from '@/data/dashboard';
+
+function RingGauge({
+  value,
+  arcColor,
+  unit,
+  title,
+  sub,
+  chip,
+}: {
+  value: number;
+  arcColor: string;
+  unit: string;
+  title: string;
+  sub: string;
+  chip: string;
+}) {
+  const getColor = () => {
+    return '#4b17e3';
+  };
+
+  const data = [
+    { name: 'progress', value: value },
+    { name: 'remaining', value: 100 - value },
+  ];
+
+  return (
+    <div className="flex items-center gap-4 p-4 bg-card border border-border rounded-lg">
+      <div className="relative w-28 h-28 flex-shrink-0">
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie
+              data={data}
+              cx="50%"
+              cy="50%"
+              innerRadius={50}
+              outerRadius={56}
+              startAngle={90}
+              endAngle={-270}
+              dataKey="value"
+              strokeWidth={0}
+            >
+              <Cell fill={getColor()} />
+              <Cell fill="#efedf1" />
+            </Pie>
+          </PieChart>
+        </ResponsiveContainer>
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+          <span className="text-xl font-bold text-foreground">{value}%</span>
+          <span className="text-[10px] uppercase tracking-widest text-muted-foreground">{unit}</span>
+        </div>
+      </div>
+      <div className="flex-1 min-w-0">
+        <h4 className="text-sm font-semibold text-foreground">{title}</h4>
+        <p className="text-xs text-muted-foreground mt-1">{sub}</p>
+        <div className="mt-2 inline-block px-2 py-1 bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-semibold">
+          {chip}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CourseRow({
+  title,
+  last,
+  progress,
+  icon: Icon,
+  accentVar,
+}: {
+  title: string;
+  last: string;
+  progress: number;
+  icon: LucideIcon;
+  accentVar: string;
+}) {
+  return (
+    <div className="flex items-center gap-3 p-3 rounded-xl border border-outline-variant bg-card hover:bg-card/80 transition-colors">
+      <div
+        className="w-14 h-11 rounded-lg flex items-center justify-center flex-shrink-0"
+        style={{ backgroundColor: `hsl(var(${accentVar}) / 0.1)` }}
+      >
+        <Icon className="w-6 h-6" style={{ color: `hsl(var(${accentVar}))` }} />
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-semibold text-foreground truncate">{title}</p>
+        <p className="text-xs text-muted-foreground truncate">{last}</p>
+        <div className="flex items-center gap-2 mt-2">
+          <div className="flex-1 h-1.5 bg-surface-container rounded-full overflow-hidden">
+            <div
+              className="h-full bg-primary rounded-full transition-all"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          <span className="text-xs font-semibold text-muted-foreground shrink-0">{progress}%</span>
+        </div>
+      </div>
+      <button className="btn-primary text-xs py-1 px-3 rounded-full shrink-0 hover:opacity-90">
+        Resume
+      </button>
+    </div>
+  );
+}
+
+function CourseCard({
+  title,
+  instructor,
+  rating,
+  reviews,
+  price,
+  image,
+  badge,
+}: {
+  title: string;
+  instructor: string;
+  rating: number;
+  reviews: string;
+  price: string;
+  image: string;
+  badge: string;
+}) {
+  return (
+    <div className="min-w-[240px] max-w-[240px] overflow-hidden bg-card border border-border rounded-2xl hover:shadow-lg transition-all hover:scale-105">
+      {/* Image Section */}
+      <div className="relative h-40 overflow-hidden bg-muted">
+        <img
+          src={image}
+          alt={title}
+          className="object-cover"
+        />
+        <div className="absolute top-3 left-3 bg-amber-500 text-amber-950 text-xs font-bold px-3 py-1 rounded-full">
+          {badge}
+        </div>
+      </div>
+
+      {/* Content Section */}
+      <div className="p-4 space-y-3">
+        <div>
+          <h4 className="text-sm font-bold text-foreground line-clamp-2 leading-tight">{title}</h4>
+          <p className="text-xs text-muted-foreground mt-2">{instructor}</p>
+        </div>
+
+        {/* Rating */}
+        <div className="flex items-center gap-2">
+          <div className="flex gap-0.5">
+            {[...Array(5)].map((_, i) => (
+              <Star
+                key={i}
+                className={`w-3.5 h-3.5 ${i < Math.floor(rating) ? 'fill-yellow-400 text-yellow-400' : 'text-muted-foreground'}`}
+              />
+            ))}
+          </div>
+          <span className="text-xs text-muted-foreground font-medium">({reviews})</span>
+        </div>
+
+        {/* Price */}
+        <p className="text-sm font-bold text-primary">{price}</p>
+      </div>
+    </div>
+  );
+}
+
+function TimelineItem({
+  icon: Icon,
+  color,
+  title,
+  desc,
+  time,
+}: {
+  icon: LucideIcon;
+  color: string;
+  title: string;
+  desc: string;
+  time: string;
+}) {
+  const colorMap: Record<string, string> = {
+    primary: 'bg-primary text-primary-foreground',
+    secondary: 'bg-secondary text-on-secondary',
+    tertiary: 'bg-tertiary text-on-tertiary',
+    amber: 'bg-amber-500 text-white',
+  };
+
+  return (
+    <div className="flex gap-2 pb-3">
+      <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${colorMap[color] || 'bg-primary'}`}>
+        <Icon className="w-3 h-3" />
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-xs font-semibold text-foreground">{title}</p>
+        <p className="text-[10px] text-muted-foreground">{desc}</p>
+        <p className="text-[10px] text-outline mt-0.5">{time}</p>
+      </div>
+    </div>
+  );
+}
+
+interface CarouselCourse {
+  title: string;
+  instructor: string;
+  rating: number;
+  reviews: string;
+  price: string;
+  image: string;
+}
+
+function CourseCarousel({
+  title,
+  courses,
+  badge,
+  viewAllLink = '#',
+}: {
+  title: string;
+  courses: CarouselCourse[];
+  badge: string;
+  viewAllLink?: string;
+}) {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = () => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      setCanScrollLeft(container.scrollLeft > 0);
+      setCanScrollRight(
+        container.scrollLeft < container.scrollWidth - container.clientWidth - 10
+      );
+    }
+  };
+
+  const scroll = (direction: 'left' | 'right') => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      const scrollAmount = 260; // width of card + gap
+      if (direction === 'left') {
+        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      } else {
+        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+      setTimeout(checkScroll, 300);
+    }
+  };
+
+  return (
+    <div className="bg-card border border-border rounded-lg p-5">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-lg font-bold text-foreground">{title}</h3>
+        <a href={viewAllLink} className="text-primary text-sm font-semibold hover:underline">
+          See all ({courses.length})
+        </a>
+      </div>
+
+      <div className="relative group">
+        {/* Left Arrow */}
+        {canScrollLeft && (
+          <button
+            onClick={() => scroll('left')}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-background/80 hover:bg-background border border-border rounded-full p-2 shadow-lg transition-all opacity-0 group-hover:opacity-100"
+            title="Scroll left"
+          >
+            <ChevronLeft className="w-5 h-5 text-foreground" />
+          </button>
+        )}
+
+        {/* Scroll Container */}
+        <div
+          ref={scrollContainerRef}
+          onScroll={checkScroll}
+          onLoad={checkScroll}
+          className="flex gap-4 overflow-x-auto pb-3 scrollbar-none scroll-smooth"
+          style={{ scrollBehavior: 'smooth' }}
+        >
+          {courses.slice(0, 4).map((course) => (
+            <CourseCard key={course.title} {...course} badge={badge} />
+          ))}
+          {courses.length > 4 && (
+            <div className="min-w-[240px] max-w-[240px] h-96 bg-card border border-dashed border-border rounded-2xl flex items-center justify-center flex-shrink-0">
+              <div className="text-center">
+                <p className="text-4xl font-bold text-primary">+{courses.length - 4}</p>
+                <p className="text-sm text-muted-foreground mt-2">more courses</p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Right Arrow */}
+        {canScrollRight && (
+          <button
+            onClick={() => scroll('right')}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-background/80 hover:bg-background border border-border rounded-full p-2 shadow-lg transition-all opacity-0 group-hover:opacity-100"
+            title="Scroll right"
+          >
+            <ChevronRight className="w-5 h-5 text-foreground" />
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default function DashboardPage() {
+  const { user } = useAuthStore();
+  const userInitials = user?.name?.split(' ').map((n) => n[0]).join('').toUpperCase() || 'RK';
+
+  return (
+    <div className="min-h-screen bg-background px-4 md:px-6 py-4 md:py-6 pb-28 md:pb-8" style={{ paddingBottom: 'max(calc(1.75rem + env(safe-area-inset-bottom)), 7rem)' }}>
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="flex flex-col xs:flex-row xs:items-end xs:justify-between gap-4 mb-8">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground">Welcome back, {user?.name?.split(' ')[0] || 'Rudresh'}</h2>
+            <p className="text-sm text-muted-foreground mt-1">Skill up, stand out, and succeed.</p>
+          </div>
+        
+        </div>
+
+        {/* Two-column layout */}
+        <div className="flex flex-col lg:flex-row gap-6">
+        {/* Left Column */}
+        <div className="flex-1 min-w-0 space-y-6">
+          {/* Ring Gauges */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {GAUGES.map((gauge) => (
+              <RingGauge key={gauge.unit} {...gauge} />
+            ))}
+          </div>
+
+          {/* My Courses */}
+          <div className="bg-card border border-border rounded-lg p-5">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-bold text-foreground">My courses</h3>
+              <a href="#" className="text-primary text-sm font-semibold hover:underline">
+                View all
+              </a>
+            </div>
+            <div className="grid lg:grids-cols-4 grids-cols-1 space-y-2">
+              {COURSES.map((course) => (
+                <CourseRow key={course.title} {...course} />
+              ))}
+            </div>
+          </div>
+
+          {/* Trending Courses */}
+          <CourseCarousel
+            title="Trending courses"
+            courses={TRENDING_COURSES}
+            badge="Trending"
+            viewAllLink="#"
+          />
+
+          {/* Bestseller Courses */}
+          <CourseCarousel
+            title="Bestseller courses"
+            courses={BESTSELLER_COURSES}
+            badge="Bestseller"
+            viewAllLink="#"
+          />
+        </div>
+
+        {/* Right Sidebar */}
+        <div className="w-full lg:w-80 lg:shrink-0 space-y-6">
+          {/* Training Opportunities */}
+          <div className="bg-primary rounded-2xl p-5 text-primary-foreground">
+            <div className="flex justify-between items-start mb-1">
+              <h4 className="text-base text-white  font-semibold">Training opportunities</h4>
+              <div className="bg-white/20 text-white text-[10px] font-semibold rounded-full px-2 py-0.5">
+                9 open
+              </div>
+            </div>
+            <p className="text-xs text-white opacity-70 mb-4">Matched to your hospitality profile</p>
+            <div className="space-y-3 mb-3">
+              {OPPORTUNITIES.map((opp) => (
+                <div key={opp.org} className="bg-white/10 rounded-lg p-3">
+                  <p className="text-xs font-semibold text-white">{opp.org}</p>
+                  <p className="text-[10px] text-white/75 mt-0.5">{opp.role}</p>
+                  <p className="text-[10px] text-white/55 mt-0.5">
+                    {opp.location} · {opp.stipend} · {opp.duration}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <button className="w-full rounded-full bg-secondary-container text-on-secondary-container text-xs font-semibold py-2">
+              Explore all opportunities
+            </button>
+          </div>
+
+          {/* Activity Timeline */}
+          <div className="bg-card border border-border rounded-lg p-5">
+            <h4 className="text-lg font-bold text-foreground mb-4">Activity timeline</h4>
+            <div className="space-y-3">
+              {TIMELINE.map((item, idx) => (
+                <TimelineItem key={idx} {...item} />
+              ))}
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  );
+}

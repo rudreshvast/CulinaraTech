@@ -168,7 +168,8 @@
 
 /* ── Dark mode overrides ──────────────────────────────────────────────────── */
 .dark {
-  --color-background:         #111113;
+  /* Semantic surface tokens — dark mode variants */
+  --color-background:         #0e0f11;
   --color-foreground:         #f0f0f3;
   --color-card:               #1a1b1e;
   --color-card-foreground:    #f0f0f3;
@@ -178,6 +179,67 @@
   --color-muted-foreground:   #a0a1ac;
   --color-border:             #27282f;
   --color-input:              #27282f;
+  --color-ring:               #8a75ff;
+
+  /* Surface containers — dark mode variants */
+  --color-surface:                  #1a1b1e;
+  --color-surface-bright:           #252631;
+  --color-surface-dim:              #0e0f11;
+  --color-surface-container:        #252631;
+  --color-surface-container-low:    #1a1b1e;
+  --color-surface-container-high:   #2f3033;
+  --color-surface-container-highest: #3a3b42;
+  --color-surface-container-lowest: #0e0f11;
+  --color-surface-variant:          #27282f;
+  --color-surface-tint:             #a89fff;
+  --color-on-surface:               #f0f0f3;
+  --color-on-surface-variant:       #c9c4d9;
+  --color-on-background:            #f0f0f3;
+
+  /* Outline tokens — dark mode */
+  --color-outline:                  #9390a5;
+  --color-outline-variant:          #484556;
+
+  /* Error/destructive — dark mode */
+  --color-error:                    #ff8c7e;
+  --color-error-container:          #930011;
+  --color-on-error:                 #330005;
+  --color-on-error-container:       #ffdad6;
+
+  /* Inverse colors — dark mode */
+  --color-inverse-surface:          #f0f0f3;
+  --color-inverse-on-surface:       #1a1b1e;
+  --color-inverse-primary:          #5233d9;
+
+  /* Primary tones — dark mode */
+  --color-primary:                  #c8bfff;
+  --color-primary-container:        #6440fb;
+  --color-on-primary:               #2e1e8a;
+  --color-on-primary-container:     #f0ecff;
+  --color-primary-fixed:            #e5deff;
+  --color-primary-fixed-dim:        #c8bfff;
+  --color-on-primary-fixed:         #2e1e8a;
+  --color-on-primary-fixed-variant: #5233d9;
+
+  /* Secondary tones — dark mode */
+  --color-secondary:                #99f2c1;
+  --color-secondary-container:      #005236;
+  --color-on-secondary:             #002113;
+  --color-on-secondary-container:   #99f2c1;
+  --color-secondary-fixed:          #6ffbbe;
+  --color-secondary-fixed-dim:      #4edea3;
+  --color-on-secondary-fixed:       #002113;
+  --color-on-secondary-fixed-variant: #005236;
+
+  /* Tertiary tones — dark mode */
+  --color-tertiary:                 #96cbff;
+  --color-tertiary-container:       #004a76;
+  --color-on-tertiary:              #001d33;
+  --color-on-tertiary-container:    #cee5ff;
+  --color-tertiary-fixed:           #cee5ff;
+  --color-tertiary-fixed-dim:       #96cbff;
+  --color-on-tertiary-fixed:        #001d33;
+  --color-on-tertiary-fixed-variant: #004a76;
 }
 
 /* ── Base resets ──────────────────────────────────────────────────────────── */
@@ -196,6 +258,12 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    color-scheme: light;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  html.dark {
+    color-scheme: dark;
   }
 
   body {
@@ -227,6 +295,11 @@
     transition: color 0.15s ease;
   }
   a:hover { color: var(--color-primary-400); }
+
+  .dark a {
+    color: var(--color-primary);
+  }
+  .dark a:hover { color: #d9d0fd; }
 
   ::selection { background-color: rgba(100, 64, 248, 0.2); }
 
@@ -264,7 +337,14 @@
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     background-color: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.12);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
   }
+
+  .dark .glass {
+    background-color: rgba(26,27,30,0.75);
+    border: 1px solid rgba(100,64,248,0.12);
+  }
+
   .glass-dark {
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
@@ -336,6 +416,19 @@
   .btn-outlined:hover  { background-color: var(--color-primary-50); }
   .btn-outlined:active { background-color: var(--color-primary-100); }
 
+  .btn-ghost {
+    display: inline-flex; align-items: center; justify-content: center;
+    background-color: transparent; color: var(--color-foreground);
+    font-family: var(--font-body); font-weight: 600;
+    font-size: var(--text-label-lg); padding: 0.625rem 1.25rem;
+    border-radius: var(--radius-lg); border: 1.5px solid var(--color-border);
+    cursor: pointer; transition: all 0.2s ease;
+  }
+  .btn-ghost:hover  { background-color: var(--color-muted); color: var(--color-foreground); }
+  .btn-ghost:active { background-color: var(--color-muted); }
+  .dark .btn-ghost { color: var(--color-foreground); }
+  .dark .btn-ghost:hover { background-color: var(--color-muted); }
+
   .card-cyber {
     background-color: var(--color-card);
     color: var(--color-card-foreground);
@@ -356,5 +449,36 @@
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--color-muted-foreground);
+  }
+   .chip-muted {
+    background: hsl(var(--surface-container));
+    color: hsl(var(--muted-foreground));
+  }
+
+  .ff-card {
+    background-color: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: hsl(var(--color-outline-variant));
+    border-radius: 2px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--color-outline));
   }
 }

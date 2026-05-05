@@ -228,6 +228,104 @@ export interface CreateLecturePayload {
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
+// Internship Types
+// ──────────────────────────────────────────────────────────────────────────────
+
+export type InternshipCategory = 'Quality & Safety' | 'R&D' | 'Production' | 'Supply Chain' | 'Regulatory Affairs';
+export type InternshipBadge = 'Urgent' | 'Hot' | 'New' | 'Closing Soon' | 'Popular';
+export type LocationType = 'On-site' | 'Hybrid' | 'Remote';
+export type Duration = '2 Months' | '3 Months' | '4 Months' | '6 Months';
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Job Types
+// ──────────────────────────────────────────────────────────────────────────────
+
+export type JobCategory = 'Quality & Safety' | 'R&D' | 'Operations & Manufacturing' | 'Regulatory Affairs' | 'Production & Manufacturing' | 'Export & Trade';
+export type JobBadge = 'Senior Role' | 'Actively Hiring' | 'Leadership Role' | 'Hybrid' | 'Niche Role' | 'Multiple Openings';
+export type EmploymentType = 'Full-Time' | 'Contract' | 'Part-Time';
+export type Experience = '0–3 Years' | '2–5 Years' | '3–6 Years' | '3–7 Years' | '8–12 Years' | '12–18 Years' | '12+ Years';
+
+export interface Job {
+  id: string;
+  slug: string;
+  title: string;
+  company: string;
+  companyLogo: string;
+  companyWebsite: string;
+  companyType: string;
+  badge: JobBadge;
+  category: JobCategory;
+  department: string;
+  postedDate: string;
+  lastDate: string;
+  featured: boolean;
+  location: string;
+  locationType: LocationType;
+  employmentType: EmploymentType;
+  experience: Experience;
+  salary: string;
+  salaryNegotiable: boolean;
+  openings: number;
+  industry: string;
+  overview: string;
+  responsibilities: string[];
+  requirements: string[];
+  preferredQualifications: string[];
+  skills: string[];
+  perks: string[];
+  workSchedule: string;
+  reportingTo: string;
+  teamSize: string;
+  travelRequired: string;
+  aboutCompany: string;
+  companySize: string;
+  founded: string;
+  headquarters: string;
+  linkedinPage: string;
+  applicationProcess: string[];
+  expectedJoining: string;
+  applyLink: string;
+  applyEmail: string;
+  referralBonus?: string;
+  relatedCourses: string[];
+  relatedInternships: string[];
+}
+
+export interface Internship {
+  id: string;
+  slug: string;
+  title: string;
+  company: string;
+  companyLogo: string;
+  companyWebsite: string;
+  badge: InternshipBadge;
+  category: InternshipCategory;
+  department: string;
+  postedDate: string;
+  lastDate: string;
+  featured: boolean;
+  location: string;
+  locationType: LocationType;
+  duration: Duration;
+  startDate: string;
+  stipend: string;
+  stipendNegotiable: boolean;
+  openings: number;
+  coverImage: string;
+  overview: string;
+  aboutCompany: string;
+  responsibilities: string[];
+  requirements: string[];
+  preferredQualifications: string[];
+  skills: string[];
+  perks: string[];
+  applicationProcess: string[];
+  applyLink: string;
+  applyEmail: string;
+  relatedCourses: string[];
+}
+
+// ──────────────────────────────────────────────────────────────────────────────
 // Zod Schemas (for forms)
 // ──────────────────────────────────────────────────────────────────────────────
 

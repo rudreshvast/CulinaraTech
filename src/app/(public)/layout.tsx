@@ -1,5 +1,7 @@
-import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
+import Navbar from '@/components/ui/navbar';
+
+export const dynamic = 'force-dynamic';
 
 export default function PublicLayout({
   children,
@@ -8,7 +10,7 @@ export default function PublicLayout({
 }) {
   return (
     <>
-      <Navbar />
+      <Navbar/>
       <main className='container mx-auto'>{children}</main>
       <Footer />
     </>

@@ -1,9 +1,15 @@
 'use client';
 
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { coursesApi } from '../api/courses.api';
 import { categoriesApi } from '../api/categories.api';
-import type { CourseQueryParams, CreateCoursePayload, UpdateCoursePayload } from '../types';
+import type {
+  CourseQueryParams,
+  CreateCoursePayload,
+  UpdateCoursePayload,
+  CreateSectionPayload,
+  CreateLecturePayload,
+} from '../types';
 
 export const courseKeys = {
   all: ['courses'] as const,
@@ -67,5 +73,103 @@ export function useCategories() {
   return useQuery({
     queryKey: categoryKeys.all,
     queryFn: () => categoriesApi.getAll(),
+  });
+}
+
+// Section Mutations
+export function useCreateSection() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ courseId, payload }: { courseId: string; payload: CreateSectionPayload }) =>
+      coursesApi.createSection(courseId, payload),
+    onSuccess: (_, { courseId }) => {
+      queryClient.invalidateQueries({ queryKey: courseKeys.detail(courseId) });
+    },
+  });
+}
+
+export function useUpdateSection() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      courseId,
+      sectionId,
+      payload,
+    }: {
+      courseId: string;
+      sectionId: string;
+      payload: Partial<CreateSectionPayload>;
+    }) => coursesApi.updateSection(courseId, sectionId, payload),
+    onSuccess: (_, { courseId }) => {
+      queryClient.invalidateQueries({ queryKey: courseKeys.detail(courseId) });
+    },
+  });
+}
+
+export function useDeleteSection() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ courseId, sectionId }: { courseId: string; sectionId: string }) =>
+      coursesApi.deleteSection(courseId, sectionId),
+    onSuccess: (_, { courseId }) => {
+      queryClient.invalidateQueries({ queryKey: courseKeys.detail(courseId) });
+    },
+  });
+}
+
+// Lecture Mutations
+export function useCreateLecture() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      courseId,
+      sectionId,
+      payload,
+    }: {
+      courseId: string;
+      sectionId: string;
+      payload: CreateLecturePayload;
+    }) => coursesApi.createLecture(courseId, sectionId, payload),
+    onSuccess: (_, { courseId }) => {
+      queryClient.invalidateQueries({ queryKey: courseKeys.detail(courseId) });
+    },
+  });
+}
+
+export function useUpdateLecture() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      courseId,
+      sectionId,
+      lectureId,
+      payload,
+    }: {
+      courseId: string;
+      sectionId: string;
+      lectureId: string;
+      payload: Partial<CreateLecturePayload>;
+    }) => coursesApi.updateLecture(courseId, sectionId, lectureId, payload),
+    onSuccess: (_, { courseId }) => {
+      queryClient.invalidateQueries({ queryKey: courseKeys.detail(courseId) });
+    },
+  });
+}
+
+export function useDeleteLecture() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      courseId,
+      sectionId,
+      lectureId,
+    }: {
+      courseId: string;
+      sectionId: string;
+      lectureId: string;
+    }) => coursesApi.deleteLecture(courseId, sectionId, lectureId),
+    onSuccess: (_, { courseId }) => {
+      queryClient.invalidateQueries({ queryKey: courseKeys.detail(courseId) });
+    },
   });
 }
