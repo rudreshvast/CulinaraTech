@@ -31,7 +31,7 @@ export function WorkshopCard({ workshop }: WorkshopCardProps) {
         {/* Content */}
         <div className="flex-1 min-w-0">
           {/* Title */}
-          <h4 className="font-semibold text-foreground line-clamp-1 group-hover:text-primary-500 transition">
+          <h4 className="font-semibold text-sm text-foreground line-clamp-2 group-hover:text-primary-500 transition">
             {workshop.title}
           </h4>
 

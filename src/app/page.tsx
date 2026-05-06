@@ -149,7 +149,7 @@ export default function HomePage() {
           <div className="flex items-center justify-between mb-12">
             <h2 className="text-4xl font-bold text-foreground">Popular Courses</h2>
             <Link href="/courses" className="text-primary-500 hover:text-primary-400 font-semibold flex items-center gap-2">
-              View all courses <ChevronRight className="w-4 h-4" />
+              View all <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
 
@@ -222,10 +222,10 @@ export default function HomePage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2 mb-1">
-                        <h4 className="font-semibold text-foreground line-clamp-1 group-hover:text-primary-500 transition">
+                        <h4 className="font-semibold text-sm text-foreground line-clamp-2 group-hover:text-primary-500 transition">
                           {visit.title}
                         </h4>
-                        <span className="text-xs font-semibold bg-muted text-muted-foreground px-2 py-1 rounded whitespace-nowrap">
+                        <span className="text-xs font-semibold bg-muted text-muted-foreground px-2 py-1 rounded whitespace-nowrap flex-shrink-0">
                           {visit.facility_type}
                         </span>
                       </div>

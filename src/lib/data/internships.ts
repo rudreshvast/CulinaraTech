@@ -21,7 +21,7 @@ export const internships: Internship[] = [
     stipend: '₹15,000/month',
     stipendNegotiable: false,
     openings: 4,
-    coverImage: 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=800',
+    coverImage: 'https://images.unsplash.com/photo-1652211955967-99c892925469?q=80&w=800',
     overview:
       "Join Nestlé India's QA team at the Moga dairy plant and gain hands-on experience in food safety management, HACCP implementation, and GMP auditing in one of India's largest integrated dairy processing facilities.",
     aboutCompany:

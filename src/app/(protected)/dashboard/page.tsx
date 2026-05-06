@@ -135,7 +135,7 @@ function CourseCard({
           alt={title}
           className="object-cover"
         />
-        <div className="absolute top-3 left-3 bg-primary/10 text-primary text-xs font-bold px-3 py-1.5 rounded-full border border-primary/20">
+        <div className="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-full border border-primary/20">
           {badge}
         </div>
       </div>

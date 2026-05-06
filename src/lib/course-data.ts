@@ -148,7 +148,7 @@ export const courses: Course[] = [
     "price": "₹14,999",
     "originalPrice": "₹19,999",
     "badge": "Trending",
-    "image": "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=800",
+    "image": "https://images.unsplash.com/photo-1652211955967-99c892925469?q=80&w=800",
     "partner": "ITC Foods",
     "overview": "Master HACCP principles, GMP auditing, and regulatory compliance frameworks essential for quality assurance roles in processed food manufacturing.",
     "whatYouWillLearn": [

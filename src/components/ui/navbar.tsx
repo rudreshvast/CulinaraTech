@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Home, BookOpen, Award, User, LogOut } from "lucide-react";
+import { useState } from "react";
+import { Home, BookOpen, User, UserPlus, LogOut, Plus, X, Briefcase, Award, Compass, LayoutDashboard } from "lucide-react";
 import { useAuthStore } from "@/lib/stores/auth.store";
 import { useLogout } from "@/lib/hooks/useAuth";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
@@ -15,27 +15,45 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const { isAuthenticated, user } = useAuthStore();
   const { mutate: logout } = useLogout();
+  const [fabOpen, setFabOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
     router.push("/");
   };
 
+  const closeFab = () => setFabOpen(false);
+
+  // Navigation items based on auth state
+  const navItems = isAuthenticated
+    ? [
+        { icon: LayoutDashboard, label: 'Dashboard', href: '/dashboard', angle: 0 },
+        { icon: BookOpen, label: 'Courses', href: '/courses', angle: 60 },
+        { icon: Briefcase, label: 'Internship', href: '/internships', angle: 120 },
+        { icon: Award, label: 'Training', href: '/training', angle: 180 },
+        { icon: Compass, label: 'Opportunities', href: '/opportunities', angle: 240 },
+        { icon: User, label: 'Profile', href: '/profile', angle: 300 },
+      ]
+    : [
+        { icon: Home, label: 'Home', href: '/', angle: 0 },
+        { icon: BookOpen, label: 'Courses', href: '/courses', angle: 60 },
+        { icon: Briefcase, label: 'Internship', href: '/internships', angle: 120 },
+        { icon: Award, label: 'Training', href: '/training', angle: 180 },
+        { icon: Compass, label: 'Opportunities', href: '/opportunities', angle: 240 },
+        { icon: UserPlus, label: 'Sign Up', href: '/auth/signup', angle: 300, highlight: true },
+      ];
+
+  const radiusDistance = 100;
+
   return (
     <>
-      {/* ---------------- DESKTOP TOP NAV ---------------- */}
+      {/* DESKTOP NAVBAR */}
       <motion.header
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -54,7 +72,6 @@ export default function Navbar() {
             >
               restaurant_menu
             </motion.span>
-
             <span className="text-xl font-bold text-[#6440FB] tracking-tighter">
               CulinaraTech
             </span>
@@ -138,7 +155,7 @@ export default function Navbar() {
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => router.push("/dashboard")}
+                  onClick={() => router.push("/profile")}
                   className="w-10 h-10 rounded-full bg-[#6440FB] flex items-center justify-center text-white text-sm font-bold hover:shadow-lg transition"
                 >
                   {user?.name
@@ -189,12 +206,12 @@ export default function Navbar() {
         </nav>
       </motion.header>
 
-      {/* ---------------- MOBILE TOP HEADER (Logo) ---------------- */}
+      {/* MOBILE TOP HEADER */}
       <motion.header
         initial={{ y: -60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4 }}
-        className="md:hidden bg-card/80 dark:bg-card/60 backdrop-blur-md sticky top-0 z-50 border-b border-border shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.30)]"
+        className="md:hidden bg-card/80 dark:bg-card/60 backdrop-blur-md sticky top-0 z-40 border-b border-border shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.30)]"
       >
         <div className="px-5 py-4 flex items-center gap-2">
           <motion.span
@@ -208,116 +225,82 @@ export default function Navbar() {
           </span>
         </div>
       </motion.header>
-      {/* ---------------- MOBILE BOTTOM NAV ---------------- */}
-      <motion.div
-        initial={{ y: 100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="md:hidden fixed bottom-0 left-0 right-0 z-50"
-      >
-        <div className="mx-4 mb-4 rounded-2xl bg-card/90 dark:bg-card/80 backdrop-blur-xl border border-border dark:border-border shadow-2xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] px-4 py-3">
-          <div className="flex justify-between items-center">
-            <NavItem
-              icon={<Home size={20} />}
-              label={isAuthenticated ? "Dashboard" : "Home"}
-              href={isAuthenticated ? "/dashboard" : "/"}
-              active={isAuthenticated ? pathname === "/dashboard" : pathname === "/"}
-            />
-            <NavItem
-              icon={<BookOpen size={20} />}
-              label="Courses"
-              href="/courses"
-              active={pathname.startsWith("/courses")}
-            />
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex flex-col items-center gap-1">
-                <Award size={20} className={pathname.startsWith("/internships") || pathname.startsWith("/training") || pathname.startsWith("/opportunities") ? "text-[#6440FB]" : "text-muted-foreground"} />
-                <span className={`text-xs font-medium ${pathname.startsWith("/internships") || pathname.startsWith("/training") || pathname.startsWith("/opportunities") ? "text-[#6440FB]" : "text-muted-foreground"}`}>Career</span>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="mb-20">
-                <DropdownMenuItem asChild>
-                  <Link href="/internships" className="flex items-center cursor-pointer">
-                    Internships
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/training" className="flex items-center cursor-pointer">
-                    Training
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/opportunities" className="flex items-center cursor-pointer">
-                    Jobs
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            {isAuthenticated ? (
-              <motion.button
-                whileTap={{ scale: 0.9 }}
-                onClick={() => router.push("/profile")}
-                className="flex flex-col items-center gap-1"
-              >
-                <div className="w-6 h-6 rounded-full bg-[#6440FB] flex items-center justify-center text-white text-xs font-bold overflow-hidden">
-                  {user?.avatarUrl ? (
-                    <img
-                      src={user.avatarUrl}
-                      alt={user.name}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <span>{user?.name?.[0]?.toUpperCase()}</span>
-                  )}
-                </div>
-                <span className="text-xs font-medium text-foreground">Profile</span>
-              </motion.button>
-            ) : (
-              <motion.button
-                whileTap={{ scale: 0.9 }}
-                onClick={() => router.push("/auth/signup")}
-                className="flex flex-col items-center gap-1"
-              >
-                <div className="w-6 h-6 rounded-full bg-[#6440FB] flex items-center justify-center text-white text-xs font-bold">
-                  +
-                </div>
-                <span className="text-xs font-medium text-foreground">Sign Up</span>
-              </motion.button>
-            )}
-          </div>
-        </div>
-      </motion.div>
-    </>
-  );
-}
 
-function NavItem({
-  icon,
-  label,
-  href,
-  active = false,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  href: string;
-  active?: boolean;
-}) {
-  return (
-    <Link href={href}>
-      <motion.div
-        whileTap={{ scale: 0.9 }}
-        className={`flex flex-col items-center gap-1 ${
-          active ? "text-[#6440FB]" : "text-muted-foreground"
-        }`}
-      >
-        {icon}
-        <span className="text-xs font-medium">{label}</span>
-        {active && (
-          <motion.div
-            layoutId="mobileIndicator"
-            className="w-1 h-1 bg-[#6440FB] rounded-full"
-          />
-        )}
-      </motion.div>
-    </Link>
+      {/* MOBILE BOTTOM SPACER */}
+      <div className="md:hidden h-24"></div>
+
+      {/* MOBILE FAB NAVIGATION */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 flex justify-center pb-6 pointer-events-none">
+        {/* Overlay */}
+        <AnimatePresence>
+          {fabOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeFab}
+              className="fixed inset-0 z-30 pointer-events-auto bg-black/20 backdrop-blur-sm"
+            />
+          )}
+        </AnimatePresence>
+
+        {/* Radial Menu Items */}
+        <div className="relative w-32 h-56 pointer-events-auto z-40">
+          <AnimatePresence>
+            {fabOpen &&
+              navItems.map((item) => {
+                const Icon = item.icon;
+                const angle = (item.angle * Math.PI) / 180;
+                const x = radiusDistance * Math.cos(angle);
+                const y = radiusDistance * Math.sin(angle);
+
+                return (
+                  <motion.div
+                    key={item.label}
+                    initial={{ scale: 0, x: 0, y: 0 }}
+                    animate={{ scale: 1, x, y }}
+                    exit={{ scale: 0, x: 0, y: 0 }}
+                    transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-2"
+                  >
+                    <Link href={item.href}>
+                      <motion.button
+                        onClick={closeFab}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        aria-label={item.label}
+                        className={`w-14 h-14 rounded-full flex items-center justify-center transition-all duration-200 shadow-lg hover:shadow-xl ${
+                          item.highlight
+                            ? 'bg-secondary text-white'
+                            : 'bg-primary text-white'
+                        }`}
+                      >
+                        <Icon size={24} />
+                      </motion.button>
+                    </Link>
+                    <span className="text-xs font-semibold text-foreground whitespace-nowrap">{item.label}</span>
+                  </motion.div>
+                );
+              })}
+          </AnimatePresence>
+
+          {/* FAB Button */}
+          <motion.button
+            onClick={() => setFabOpen(!fabOpen)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-[#534AB7] text-white flex items-center justify-center shadow-2xl hover:shadow-lg transition-all duration-200 z-50"
+            aria-label={fabOpen ? 'Close navigation' : 'Open navigation'}
+          >
+            <motion.div
+              animate={{ rotate: fabOpen ? 45 : 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {fabOpen ? <X size={28} /> : <Plus size={28} />}
+            </motion.div>
+          </motion.button>
+        </div>
+      </div>
+    </>
   );
 }

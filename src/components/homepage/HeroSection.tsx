@@ -137,7 +137,7 @@ export function HeroSection() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
-          className="lg:col-span-5 relative flex items-center justify-center"
+          className="hidden lg:col-span-5 lg:flex relative items-center justify-center"
         >
           {/* Decorative Background */}
           <div className="absolute inset-0 bg-primary-fixed rounded-[4rem] opacity-30 transform rotate-3"></div>

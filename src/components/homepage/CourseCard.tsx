@@ -113,7 +113,7 @@ export function CourseCard({ course }: CourseCardProps) {
               </div>
               <button
                 onClick={handleEnrollClick}
-                className="bg-primary hover:bg-primary-600 text-primary-foreground text-xs font-semibold px-2 py-1 rounded transition"
+                className="bg-primary hover:bg-primary-600 text-white text-xs font-semibold px-2 py-1 rounded transition"
               >
                 Enroll
               </button>

@@ -47,7 +47,7 @@ export function JobCard({ job }: JobCardProps) {
         <div className="bg-card border border-border rounded-2xl my-2 p-6 hover:shadow-lg hover:border-primary-200 hover:-translate-y-1 transition group">
           <div className="flex gap-6 items-start">
             {/* Logo */}
-            <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-border">
+            <div className="hidden md:block relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-border">
               <Image src={job.companyLogo} alt={job.company} fill className="object-cover" />
             </div>
 
@@ -105,18 +105,18 @@ export function JobCard({ job }: JobCardProps) {
               </div>
 
               {/* Row 6: Meta Info and CTA */}
-              <div className="flex items-center justify-between border-t border-border pt-4">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between border-t border-border pt-4 gap-4 md:gap-2">
+                <div className="flex flex-col md:flex-row md:items-center gap-2 text-xs text-muted-foreground">
                   <span>{job.openings} opening(s)</span>
-                  <span>•</span>
+                  <span className="hidden md:inline">•</span>
                   <span>Posted {job.postedDaysAgo}d ago</span>
-                  <span>•</span>
+                  <span className="hidden md:inline">•</span>
                   <span className={isClosing ? 'text-destructive font-semibold' : ''}>
                     Apply by {lastDate.toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}
                   </span>
                 </div>
-                <div className="flex gap-2">
-                  <button className="border border-border hover:border-primary-300 text-primary-500 hover:text-primary-600 text-xs font-semibold px-3 py-1.5 rounded transition">
+                <div className="flex flex-col md:flex-row gap-2 w-full md:w-auto">
+                  <button className="border border-border hover:border-primary-300 text-primary-500 hover:text-primary-600 text-sm font-semibold px-4 py-2.5 md:px-3 md:py-1.5 rounded transition min-h-[44px] md:min-h-auto flex items-center justify-center">
                     View Details
                   </button>
                   <button
@@ -124,7 +124,7 @@ export function JobCard({ job }: JobCardProps) {
                       e.preventDefault();
                       handleApplyClick();
                     }}
-                    className="bg-primary-500 hover:bg-primary-600 text-white text-xs font-semibold px-3 py-1.5 rounded transition"
+                    className="bg-primary-500 hover:bg-primary-600 text-white text-sm font-semibold px-4 py-2.5 md:px-3 md:py-1.5 rounded transition min-h-[44px] md:min-h-auto flex items-center justify-center"
                   >
                     Apply Now
                   </button>

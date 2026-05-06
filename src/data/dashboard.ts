@@ -107,7 +107,7 @@ export const TRENDING_COURSES: TrendingCourse[] = [
     price: '₹14,999',
     icon: Beaker,
     bg: 'primary',
-    image: 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=800',
+    image: 'https://images.unsplash.com/photo-1652211955967-99c892925469?q=80&w=800',
   },
   {
     title: 'Beverage Processing & Packaging',
@@ -150,7 +150,7 @@ export const BESTSELLER_COURSES: TrendingCourse[] = [
     price: '₹11,999',
     icon: Beaker,
     bg: 'secondary',
-    image: 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=800',
+    image: 'https://images.unsplash.com/photo-1652211955967-99c892925469?q=80&w=800',
   },
   {
     title: 'Dairy Processing Excellence',
