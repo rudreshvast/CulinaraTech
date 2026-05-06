@@ -8,15 +8,15 @@ import "@/app/globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "HospitalityLearn",
-    template: "%s | HospitalityLearn",
+    default: "CulinaraTech",
+    template: "%s | CulinaraTech",
   },
   description: "Learn hospitality skills for your career.",
   keywords: ["hospitality", "education", "courses", "training"],
   manifest: "/manifest.json",
   openGraph: {
     type: "website",
-    siteName: "HospitalityLearn",
+    siteName: "CulinaraTech",
   },
 };
 

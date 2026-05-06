@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Home, BookOpen, Award, User, LogOut } from "lucide-react";
 import { useAuthStore } from "@/lib/stores/auth.store";
 import { useLogout } from "@/lib/hooks/useAuth";
@@ -103,9 +104,9 @@ export default function Navbar() {
 
               <NavigationMenuItem>
                 <Link
-                  href="/internship"
+                  href="/internships"
                   className={`pb-1 ${
-                    pathname.startsWith("/internship")
+                    pathname.startsWith("/internships")
                       ? "text-[#6440FB] font-bold border-b-2 border-[#6440FB]"
                       : "text-foreground font-medium hover:text-[#6440FB]"
                   }`}
@@ -230,12 +231,12 @@ export default function Navbar() {
             />
             <DropdownMenu>
               <DropdownMenuTrigger className="flex flex-col items-center gap-1">
-                <Award size={20} className={pathname.startsWith("/internship") || pathname.startsWith("/training") || pathname.startsWith("/opportunities") ? "text-[#6440FB]" : "text-muted-foreground"} />
-                <span className={`text-xs font-medium ${pathname.startsWith("/internship") || pathname.startsWith("/training") || pathname.startsWith("/opportunities") ? "text-[#6440FB]" : "text-muted-foreground"}`}>Career</span>
+                <Award size={20} className={pathname.startsWith("/internships") || pathname.startsWith("/training") || pathname.startsWith("/opportunities") ? "text-[#6440FB]" : "text-muted-foreground"} />
+                <span className={`text-xs font-medium ${pathname.startsWith("/internships") || pathname.startsWith("/training") || pathname.startsWith("/opportunities") ? "text-[#6440FB]" : "text-muted-foreground"}`}>Career</span>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="mb-20">
                 <DropdownMenuItem asChild>
-                  <Link href="/internship" className="flex items-center cursor-pointer">
+                  <Link href="/internships" className="flex items-center cursor-pointer">
                     Internships
                   </Link>
                 </DropdownMenuItem>

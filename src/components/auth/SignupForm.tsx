@@ -20,14 +20,26 @@ import { useToast } from '@/hooks/use-toast';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 
 const INTERESTS = [
-  'Baking & Pastry',
-  'Food Safety',
-  'Kitchen Management',
-  'Nutrition',
-  'Food Technology',
-  'Culinary Arts',
-  'Hospitality Management',
-  'Entrepreneurship',
+  'Food Processing & Manufacturing',
+  'Quality Assurance & Control',
+  'Food Safety & Hygiene',
+  'Food Preservation Techniques',
+  'Packaging Technology',
+  'Supply Chain & Logistics',
+  'Food Microbiology',
+  'Sensory Evaluation',
+  'Product Development & R&D',
+  'Regulatory Compliance & Labeling',
+  'Dairy Processing',
+  'Meat & Poultry Processing',
+  'Beverage Technology',
+  'Grain & Cereal Processing',
+  'Fruit & Vegetable Processing',
+  'Cold Chain Management',
+  'Automation & Food Engineering',
+  'Sustainable Processing Practices',
+  'Nutritional Science',
+  'Food Biotechnology',
 ];
 
 interface SignupFormState {

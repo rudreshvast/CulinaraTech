@@ -58,12 +58,12 @@ export default function JobDetailPage({ params }: PageProps) {
 
   const getBadgeColor = (badge: string) => {
     const colors: Record<string, string> = {
-      'Senior Role': 'bg-purple-500 text-white',
-      'Actively Hiring': 'bg-green-500 text-white',
-      'Leadership Role': 'bg-blue-500 text-white',
-      'Hybrid': 'bg-indigo-500 text-white',
-      'Niche Role': 'bg-orange-500 text-white',
-      'Multiple Openings': 'bg-teal-500 text-white',
+      'Senior Role': 'bg-primary-500 text-white',
+      'Actively Hiring': 'bg-secondary-500 text-white',
+      'Leadership Role': 'bg-tertiary-500 text-white',
+      'Hybrid': 'bg-primary-400 text-white',
+      'Niche Role': 'bg-secondary-600 text-white',
+      'Multiple Openings': 'bg-tertiary-600 text-white',
     };
     return colors[badge] || 'bg-muted text-muted-foreground';
   };
@@ -113,16 +113,16 @@ export default function JobDetailPage({ params }: PageProps) {
             </div>
 
             <div className="flex-1">
-              <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
+              <div className="mb-3 flex flex-wrap items-start justify-between gap-2">
                 <div>
-                  <h1 className="text-2xl font-bold text-foreground md:text-3xl">
+                  <h1 className="text-3xl font-bold text-foreground md:text-4xl leading-tight">
                     {job.title}
                   </h1>
-                  <p className="mt-1 text-lg text-muted-foreground">{job.company}</p>
+                  <p className="mt-2 text-base font-medium text-muted-foreground">{job.company}</p>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {job.featured && (
-                    <Badge variant="secondary" className="bg-amber-100 text-amber-900">
+                    <Badge variant="secondary" className="bg-secondary-100 text-secondary-900">
                       Featured
                     </Badge>
                   )}
@@ -145,7 +145,7 @@ export default function JobDetailPage({ params }: PageProps) {
                   <Clock className="h-4 w-4" />
                   {job.experience}
                 </div>
-                <div className="flex items-center gap-1 text-sm font-medium text-green-600">
+                <div className="flex items-center gap-1 text-sm font-semibold text-secondary-600">
                   <IndianRupee className="h-4 w-4" />
                   {job.salary}
                 </div>
@@ -162,16 +162,16 @@ export default function JobDetailPage({ params }: PageProps) {
           <div className="lg:col-span-2 space-y-8">
             {/* Overview */}
             <section>
-              <h2 className="mb-3 text-xl font-bold text-foreground">About This Role</h2>
-              <p className="text-muted-foreground leading-relaxed">{job.overview}</p>
+              <h2 className="mb-4 text-2xl font-bold text-foreground">About This Role</h2>
+              <p className="text-base text-muted-foreground leading-relaxed">{job.overview}</p>
             </section>
 
             {/* Responsibilities */}
             <section>
-              <h2 className="mb-4 text-xl font-bold text-foreground">Key Responsibilities</h2>
+              <h2 className="mb-4 text-2xl font-bold text-foreground">Key Responsibilities</h2>
               <ul className="space-y-3">
                 {job.responsibilities.map((resp, idx) => (
-                  <li key={idx} className="flex gap-3 text-muted-foreground">
+                  <li key={idx} className="flex gap-3 text-base text-muted-foreground">
                     <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-primary mt-0.5" />
                     <span>{resp}</span>
                   </li>
@@ -181,10 +181,10 @@ export default function JobDetailPage({ params }: PageProps) {
 
             {/* Requirements */}
             <section>
-              <h2 className="mb-4 text-xl font-bold text-foreground">Requirements</h2>
+              <h2 className="mb-4 text-2xl font-bold text-foreground">Requirements</h2>
               <ul className="space-y-3">
                 {job.requirements.map((req, idx) => (
-                  <li key={idx} className="flex gap-3 text-muted-foreground">
+                  <li key={idx} className="flex gap-3 text-base text-muted-foreground">
                     <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-primary mt-0.5" />
                     <span>{req}</span>
                   </li>
@@ -195,10 +195,10 @@ export default function JobDetailPage({ params }: PageProps) {
             {/* Preferred Qualifications */}
             {job.preferredQualifications.length > 0 && (
               <section>
-                <h2 className="mb-4 text-xl font-bold text-foreground">Preferred Qualifications</h2>
+                <h2 className="mb-4 text-2xl font-bold text-foreground">Preferred Qualifications</h2>
                 <ul className="space-y-3">
                   {job.preferredQualifications.map((qual, idx) => (
-                    <li key={idx} className="flex gap-3 text-muted-foreground">
+                    <li key={idx} className="flex gap-3 text-base text-muted-foreground">
                       <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-primary mt-0.5" />
                       <span>{qual}</span>
                     </li>
@@ -209,12 +209,12 @@ export default function JobDetailPage({ params }: PageProps) {
 
             {/* Perks & Benefits */}
             <section>
-              <h2 className="mb-4 text-xl font-bold text-foreground">Perks & Benefits</h2>
+              <h2 className="mb-4 text-2xl font-bold text-foreground">Perks & Benefits</h2>
               <div className="grid gap-3 md:grid-cols-2">
                 {job.perks.map((perk, idx) => (
                   <div
                     key={idx}
-                    className="flex gap-3 rounded-lg border border-border bg-card p-3"
+                    className="flex gap-3 rounded-lg border border-border/50 bg-muted/30 p-3 hover:border-border hover:bg-muted/50 transition-colors"
                   >
                     <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-primary mt-0.5" />
                     <span className="text-sm text-muted-foreground">{perk}</span>
@@ -225,25 +225,25 @@ export default function JobDetailPage({ params }: PageProps) {
 
             {/* About Company */}
             <section>
-              <h2 className="mb-3 text-xl font-bold text-foreground">About the Company</h2>
-              <p className="text-muted-foreground leading-relaxed">{job.aboutCompany}</p>
+              <h2 className="mb-4 text-2xl font-bold text-foreground">About the Company</h2>
+              <p className="text-base text-muted-foreground leading-relaxed mb-6">{job.aboutCompany}</p>
               {job.companySize && (
-                <div className="mt-4 grid gap-4 md:grid-cols-2">
+                <div className="mt-6 grid gap-4 md:grid-cols-2">
                   <div>
-                    <p className="text-xs font-semibold uppercase text-muted-foreground">Company Size</p>
-                    <p className="text-foreground">{job.companySize}</p>
+                    <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">Company Size</p>
+                    <p className="text-sm font-medium text-foreground">{job.companySize}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-semibold uppercase text-muted-foreground">Founded</p>
-                    <p className="text-foreground">{job.founded}</p>
+                    <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">Founded</p>
+                    <p className="text-sm font-medium text-foreground">{job.founded}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-semibold uppercase text-muted-foreground">Headquarters</p>
-                    <p className="text-foreground">{job.headquarters}</p>
+                    <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">Headquarters</p>
+                    <p className="text-sm font-medium text-foreground">{job.headquarters}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-semibold uppercase text-muted-foreground">Type</p>
-                    <p className="text-foreground">{job.companyType}</p>
+                    <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">Type</p>
+                    <p className="text-sm font-medium text-foreground">{job.companyType}</p>
                   </div>
                 </div>
               )}
@@ -253,57 +253,57 @@ export default function JobDetailPage({ params }: PageProps) {
           {/* Right Column - Sidebar */}
           <aside className="lg:col-span-1">
             {/* Job Summary Card */}
-            <div className="sticky top-24 space-y-6 rounded-lg border border-border bg-card p-6">
+            <div className="sticky top-24 space-y-5 rounded-xl border border-border bg-card p-6 shadow-sm">
               {/* Key Info */}
               <div className="space-y-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase text-muted-foreground">Department</p>
-                  <p className="text-foreground">{job.department}</p>
+                  <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Department</p>
+                  <p className="text-sm font-medium text-foreground mt-1">{job.department}</p>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold uppercase text-muted-foreground">Reporting To</p>
-                  <p className="text-foreground">{job.reportingTo}</p>
+                  <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Reporting To</p>
+                  <p className="text-sm font-medium text-foreground mt-1">{job.reportingTo}</p>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold uppercase text-muted-foreground">Team Size</p>
-                  <p className="text-foreground">{job.teamSize}</p>
+                  <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Team Size</p>
+                  <p className="text-sm font-medium text-foreground mt-1">{job.teamSize}</p>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold uppercase text-muted-foreground">Travel Required</p>
-                  <p className="text-foreground">{job.travelRequired}</p>
+                  <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Travel Required</p>
+                  <p className="text-sm font-medium text-foreground mt-1">{job.travelRequired}</p>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold uppercase text-muted-foreground">Work Schedule</p>
-                  <p className="text-foreground text-sm">{job.workSchedule}</p>
+                  <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Work Schedule</p>
+                  <p className="text-sm font-medium text-foreground mt-1">{job.workSchedule}</p>
                 </div>
               </div>
 
               <div className="border-t border-border" />
 
               {/* Application Info */}
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase text-muted-foreground mb-1">Openings</p>
-                  <p className="text-lg font-bold text-foreground">{job.openings}</p>
+                  <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">Openings</p>
+                  <p className="text-2xl font-bold text-foreground">{job.openings}</p>
                 </div>
 
                 <div>
-                  <p className="text-xs font-semibold uppercase text-muted-foreground mb-1">Expected Joining</p>
-                  <p className="text-foreground">{job.expectedJoining}</p>
+                  <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">Expected Joining</p>
+                  <p className="text-sm font-medium text-foreground">{job.expectedJoining}</p>
                 </div>
 
                 <div>
-                  <p className="text-xs font-semibold uppercase text-muted-foreground mb-1">Application Deadline</p>
-                  <p className={`font-medium ${isClosingSoon(job.lastDate) ? 'text-destructive' : 'text-foreground'}`}>
+                  <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">Application Deadline</p>
+                  <p className={`text-sm font-semibold ${isClosingSoon(job.lastDate) ? 'text-destructive' : 'text-foreground'}`}>
                     {formatDate(job.lastDate)}
                     {isClosingSoon(job.lastDate) && ' ⚠️'}
                   </p>
                 </div>
 
                 {job.referralBonus && (
-                  <div className="rounded-lg bg-amber-50 p-3">
-                    <p className="text-xs font-semibold uppercase text-amber-900 mb-1">Referral Bonus</p>
-                    <p className="text-sm text-amber-900">{job.referralBonus}</p>
+                  <div className="rounded-lg bg-secondary-50 p-3 border border-secondary-200">
+                    <p className="text-xs font-semibold uppercase text-secondary-900 mb-1">Referral Bonus</p>
+                    <p className="text-sm font-medium text-secondary-800">{job.referralBonus}</p>
                   </div>
                 )}
               </div>
@@ -312,7 +312,7 @@ export default function JobDetailPage({ params }: PageProps) {
 
               {/* Skills */}
               <div>
-                <p className="mb-3 text-xs font-semibold uppercase text-muted-foreground">Key Skills</p>
+                <p className="mb-3 text-xs font-bold uppercase tracking-wide text-muted-foreground">Key Skills</p>
                 <div className="flex flex-wrap gap-2">
                   {job.skills.map((skill) => (
                     <Badge key={skill} variant="outline" className="text-xs">
@@ -326,7 +326,7 @@ export default function JobDetailPage({ params }: PageProps) {
 
               {/* Application Steps */}
               <div>
-                <p className="mb-3 text-xs font-semibold uppercase text-muted-foreground">Application Process</p>
+                <p className="mb-3 text-xs font-bold uppercase tracking-wide text-muted-foreground">Application Process</p>
                 <ol className="space-y-2">
                   {job.applicationProcess.map((step, idx) => (
                     <li key={idx} className="flex gap-2 text-sm text-muted-foreground">
@@ -340,8 +340,8 @@ export default function JobDetailPage({ params }: PageProps) {
               <div className="border-t border-border" />
 
               {/* CTA Buttons */}
-              <div className="space-y-3">
-                <Button className="w-full" onClick={handleApplyClick}>
+              <div className="space-y-2 pt-2">
+                <Button className="w-full bg-primary hover:bg-primary-600 text-white font-semibold" onClick={handleApplyClick}>
                   Apply Now
                 </Button>
                 <Button variant="outline" className="w-full" asChild>
@@ -352,11 +352,11 @@ export default function JobDetailPage({ params }: PageProps) {
               </div>
 
               {/* Contact */}
-              <div className="text-center text-sm">
-                <p className="text-muted-foreground mb-2">Questions?</p>
+              <div className="text-center pt-2">
+                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Questions?</p>
                 <a
                   href={`mailto:${job.applyEmail}`}
-                  className="text-primary hover:underline"
+                  className="text-sm font-medium text-primary hover:underline transition-colors"
                 >
                   {job.applyEmail}
                 </a>

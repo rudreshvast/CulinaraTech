@@ -13,6 +13,8 @@ export interface Opportunity {
   description: string;
   qualification: string[];
   perks: string[];
+  startDate?: string;
+  endDate?: string;
 }
 
 export const CAREER_OPPORTUNITIES: Opportunity[] = [
@@ -218,6 +220,8 @@ export const CAREER_OPPORTUNITIES: Opportunity[] = [
     location: 'Anand, Gujarat',
     timings: '10:00 AM – 4:00 PM',
     stipend: '₹2,500',
+    startDate: '2025-05-15',
+    endDate: '2025-05-15',
     about: [
       'Learn pasteurization techniques',
       'Understand homogenization process',
@@ -249,6 +253,8 @@ export const CAREER_OPPORTUNITIES: Opportunity[] = [
     location: 'Mumbai, Maharashtra',
     timings: '9:00 AM – 5:00 PM',
     stipend: '₹3,500',
+    startDate: '2025-05-20',
+    endDate: '2025-05-22',
     about: [
       'HACCP principles & application',
       'Food safety regulations',
@@ -280,6 +286,8 @@ export const CAREER_OPPORTUNITIES: Opportunity[] = [
     location: 'Pune, Maharashtra',
     timings: '9:00 AM – 6:00 PM',
     stipend: '₹4,000',
+    startDate: '2025-05-25',
+    endDate: '2025-05-26',
     about: [
       'Beverage chemistry basics',
       'Flavor formulation techniques',
@@ -311,6 +319,8 @@ export const CAREER_OPPORTUNITIES: Opportunity[] = [
     location: 'Bangalore',
     timings: '9:30 AM – 1:30 PM',
     stipend: 'Free',
+    startDate: '2025-05-18',
+    endDate: '2025-05-18',
     about: [
       'Complete facility tour',
       'Production line observation',
@@ -341,6 +351,8 @@ export const CAREER_OPPORTUNITIES: Opportunity[] = [
     location: 'Moga, Punjab',
     timings: '10:00 AM – 2:00 PM',
     stipend: 'Free',
+    startDate: '2025-05-27',
+    endDate: '2025-05-27',
     about: [
       'QA lab comprehensive tour',
       'Testing procedures observation',

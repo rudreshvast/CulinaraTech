@@ -318,7 +318,7 @@ export const jobs: Job[] = [
     ],
     expectedJoining: '30–60 days',
     applyLink: '#',
-    applyEmail: 'regulatory.careers@himalayawellness.com',
+    applyEmail: 'r.c@himalayawellness.com',
     relatedCourses: ['nutraceuticals-and-functional-foods'],
     relatedInternships: ['int-005']
   },

@@ -408,7 +408,7 @@ export default function ApplyModal({
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground"
+                className="w-full bg-secondary hover:bg-secondary/90 text-white"
               >
                 {isSubmitting ? (
                   <>

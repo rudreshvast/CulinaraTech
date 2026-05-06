@@ -2,12 +2,10 @@
 
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { LogIn, Lock } from 'lucide-react';
+import { LogIn, UserPlus } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
 
@@ -22,7 +20,7 @@ export function LoginRequiredModal({
   open,
   onOpenChange,
   title = 'Login Required',
-  description = 'Please login to your account to continue with this action.',
+  description = 'Please login to your account in order to proceed',
 }: LoginRequiredModalProps) {
   const router = useRouter();
 
@@ -38,74 +36,62 @@ export function LoginRequiredModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-2xl w-full p-8 md:p-10">
-        <div className="space-y-10 py-6">
-          {/* Header with Icon */}
-          <div className="flex flex-col items-center text-center space-y-6">
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.3 }}
-              className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center"
-            >
-              <Lock size={40} className="text-primary" />
-            </motion.div>
-            <div className="space-y-4">
-              <DialogTitle className="text-4xl md:text-5xl font-bold text-foreground">
-                {title}
-              </DialogTitle>
-              <DialogDescription className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-                {description}
-              </DialogDescription>
-            </div>
-          </div>
+      <DialogContent className="sm:max-w-lg md:max-w-2xl w-full p-6 gap-6" showCloseButton={false}>
+        {/* Top Message */}
+        <div className="text-center space-y-2">
+          <DialogTitle className="text-lg font-bold text-foreground">{title}</DialogTitle>
+          <p className="text-sm text-muted-foreground">{description}</p>
+        </div>
 
-          {/* Action Buttons */}
-          <div className="space-y-5 pt-6">
+        {/* Two Column Layout */}
+        <div className="grid grid-cols-2 gap-6">
+          {/* Login Section */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3 }}
+            className="flex flex-col items-center space-y-4 p-4 rounded-lg bg-surface-container/50 border border-border"
+          >
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+              <LogIn size={24} className="text-primary" />
+            </div>
+            <div className="text-center space-y-1">
+              <h3 className="font-semibold text-foreground text-sm">Have an account?</h3>
+              <p className="text-xs text-muted-foreground">Sign in to your account</p>
+            </div>
             <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={handleLogin}
-              className="w-full py-4 md:py-5 bg-primary text-primary-foreground rounded-lg font-semibold text-lg md:text-xl flex items-center justify-center gap-3 hover:shadow-xl transition-all duration-200"
+              className="w-full py-2 bg-primary text-white rounded-lg font-semibold text-xs hover:shadow-lg transition-all duration-200"
             >
-              <LogIn size={24} />
-              Login to Your Account
+              Login
             </motion.button>
+          </motion.div>
 
-            {/* Divider */}
-            <div className="relative py-4">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-border"></div>
-              </div>
-              <div className="relative flex justify-center">
-                <span className="px-4 bg-background text-sm text-muted-foreground uppercase tracking-widest font-medium">
-                  or
-                </span>
-              </div>
+          {/* Sign Up Section */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+            className="flex flex-col items-center space-y-4 p-4 rounded-lg bg-surface-container/50 border border-border"
+          >
+            <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center">
+              <UserPlus size={24} className="text-secondary-600" />
             </div>
-
+            <div className="text-center space-y-1">
+              <h3 className="font-semibold text-foreground text-sm">New user?</h3>
+              <p className="text-xs text-muted-foreground">Create a new account</p>
+            </div>
             <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={handleSignUp}
-              className="w-full py-4 md:py-5 bg-secondary/80 text-secondary-foreground rounded-lg font-semibold text-lg md:text-xl hover:bg-secondary hover:shadow-xl transition-all duration-200"
+              className="w-full py-2 bg-secondary text-white rounded-lg font-semibold text-xs hover:shadow-lg transition-all duration-200"
             >
-              Create New Account
+              Sign Up
             </motion.button>
-          </div>
-
-          {/* Footer Link */}
-          <div className="text-center pt-6">
-            <p className="text-muted-foreground text-base md:text-lg">
-              Already have an account?{' '}
-              <button
-                onClick={handleLogin}
-                className="text-primary font-bold hover:underline transition-colors"
-              >
-                Login here
-              </button>
-            </p>
-          </div>
+          </motion.div>
         </div>
       </DialogContent>
     </Dialog>

@@ -1,14 +1,8 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
 import {
   Search,
-  MapPin,
-  Briefcase,
-  Clock,
-  ChevronRight,
   Filter,
   X,
   AlertCircle,
@@ -16,9 +10,8 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { Internship } from '@/lib/types';
-import { internships } from '@/lib/data/internships';
+import { internships } from '@/lib/data';
+import { InternshipCard } from '@/components/homepage/InternshipCard';
 
 type SortOption = 'latest' | 'highest-stipend' | 'closing-soon';
 type StipendRange = 'any' | '10k' | '15k' | '18k';
@@ -63,12 +56,8 @@ export default function InternshipsPage() {
     setSortBy('latest');
   };
 
-  const getStipendValue = (stipendText: string): number => {
-    const match = stipendText.match(/₹(\d+),?(\d*)/);
-    if (match) {
-      return parseInt(match[1] + (match[2] || '')) * (match[2] ? 1 : 1000);
-    }
-    return 0;
+  const getStipendValue = (stipend: number): number => {
+    return stipend;
   };
 
   const filteredAndSorted = useMemo(() => {
@@ -80,7 +69,7 @@ export default function InternshipsPage() {
 
       const matchesCategory =
         selectedCategories.length === 0 ||
-        selectedCategories.includes(internship.category);
+        (internship.category && selectedCategories.includes(internship.category));
 
       const matchesLocationType =
         selectedLocationTypes.length === 0 ||
@@ -112,7 +101,9 @@ export default function InternshipsPage() {
 
     filtered.sort((a, b) => {
       if (sortBy === 'latest') {
-        return new Date(b.postedDate).getTime() - new Date(a.postedDate).getTime();
+        const dateA = a.postedDate ? new Date(a.postedDate).getTime() : 0;
+        const dateB = b.postedDate ? new Date(b.postedDate).getTime() : 0;
+        return dateB - dateA;
       } else if (sortBy === 'highest-stipend') {
         return getStipendValue(b.stipend) - getStipendValue(a.stipend);
       } else if (sortBy === 'closing-soon') {
@@ -124,58 +115,31 @@ export default function InternshipsPage() {
     return filtered;
   }, [search, selectedCategories, selectedLocationTypes, selectedDurations, selectedStipend, sortBy]);
 
-  const formatDate = (dateStr: string): string => {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString('en-IN', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
-  };
-
-  const isClosingSoon = (dateStr: string): boolean => {
-    const now = new Date();
-    const lastDate = new Date(dateStr);
-    const daysLeft = (lastDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);
-    return daysLeft <= 7 && daysLeft > 0;
-  };
-
-  const getBadgeColor = (badge: string) => {
-    const colors: Record<string, string> = {
-      Urgent: 'bg-destructive text-destructive-foreground',
-      Hot: 'bg-orange-500 text-white',
-      New: 'bg-green-500 text-white',
-      'Closing Soon': 'bg-yellow-500 text-black',
-      Popular: 'bg-blue-500 text-white',
-    };
-    return colors[badge] || 'bg-muted text-muted-foreground';
-  };
-
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Banner */}
-      <div className="relative bg-gradient-to-br from-green-700 via-green-600 to-emerald-700 px-4 py-12 text-white sm:py-16 md:py-20">
+      <div className="relative bg-gradient-to-br from-primary-600 via-primary-500 to-tertiary-500  px-4 py-12 text-white sm:py-16 md:py-20">
         <div className="mx-auto max-w-7xl">
           <h1 className="mb-2 text-3xl font-bold sm:text-4xl md:text-5xl">
             Food Processing Internships
           </h1>
-          <p className="mb-8 text-lg text-green-100 sm:text-xl">
-            Gain hands-on experience at India's leading food companies
+          <p className="mb-8 text-lg text-white/80 sm:text-xl">
+            Paid internships at India's leading food manufacturing and FMCG companies
           </p>
 
           {/* Stats Pills */}
           <div className="flex flex-wrap gap-3 sm:gap-4">
-            <div className="flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 backdrop-blur-sm">
+            <div className="flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 backdrop-blur-md">
               <span className="font-bold">{internships.length}</span>
               <span>Open Positions</span>
             </div>
-            <div className="flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 backdrop-blur-sm">
-              <Sparkles className="h-4 w-4" />
-              <span>Top Companies</span>
+            <div className="flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 backdrop-blur-md">
+              <span className="font-bold">Pan-India</span>
+              <span>Locations</span>
             </div>
-            <div className="flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 backdrop-blur-sm">
-              <span className="font-bold">Paid</span>
-              <span>Internships</span>
+            <div className="flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 backdrop-blur-md">
+              <Sparkles className="h-4 w-4" />
+              <span>Top Food Companies</span>
             </div>
           </div>
         </div>
@@ -185,7 +149,7 @@ export default function InternshipsPage() {
       <div className="mx-auto max-w-7xl px-4 py-8 sm:py-12">
         <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
           {/* Sidebar - Desktop */}
-          <aside className="hidden flex-shrink-0 lg:block w-72">
+          <aside className="hidden flex-shrink-0 lg:block w-80">
             <div className="sticky top-24 space-y-6">
               {/* Search */}
               <div className="relative">
@@ -325,107 +289,9 @@ export default function InternshipsPage() {
 
             {/* Internship Cards Grid */}
             {filteredAndSorted.length > 0 ? (
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
                 {filteredAndSorted.map((internship) => (
-                  <div
-                    key={internship.id}
-                    className="group relative flex flex-col rounded-lg border border-border bg-card p-5 transition-all hover:shadow-md"
-                  >
-                    {/* Header with Logo, Featured Badge, and Badge */}
-                    <div className="mb-4 flex items-start justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded">
-                          <Image
-                            src={internship.companyLogo}
-                            alt={internship.company}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground line-clamp-2">
-                            {internship.title}
-                          </h3>
-                          <p className="text-sm text-muted-foreground">{internship.company}</p>
-                        </div>
-                      </div>
-                      <div className="flex flex-col items-end gap-2">
-                        {internship.featured && (
-                          <Badge variant="secondary" className="bg-amber-100 text-amber-900">
-                            Featured
-                          </Badge>
-                        )}
-                        <Badge className={getBadgeColor(internship.badge)}>
-                          {internship.badge}
-                        </Badge>
-                      </div>
-                    </div>
-
-                    {/* Pills: Location, Type, Duration */}
-                    <div className="mb-4 flex flex-wrap gap-2">
-                      <div className="flex items-center gap-1 rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">
-                        <MapPin className="h-3 w-3" />
-                        {internship.location}
-                      </div>
-                      <div className="flex items-center gap-1 rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">
-                        <Briefcase className="h-3 w-3" />
-                        {internship.locationType}
-                      </div>
-                      <div className="flex items-center gap-1 rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground">
-                        <Clock className="h-3 w-3" />
-                        {internship.duration}
-                      </div>
-                    </div>
-
-                    {/* Stipend and Openings */}
-                    <div className="mb-4 flex items-baseline justify-between">
-                      <span className="font-bold text-green-600">{internship.stipend}</span>
-                      <span className="text-sm text-muted-foreground">{internship.openings} openings</span>
-                    </div>
-
-                    {/* Skills Pills */}
-                    <div className="mb-4 flex flex-wrap gap-2">
-                      {internship.skills.slice(0, 3).map((skill) => (
-                        <Badge key={skill} variant="outline" className="text-xs font-normal">
-                          {skill}
-                        </Badge>
-                      ))}
-                      {internship.skills.length > 3 && (
-                        <Badge variant="outline" className="text-xs font-normal">
-                          +{internship.skills.length - 3} more
-                        </Badge>
-                      )}
-                    </div>
-
-                    {/* Last Date */}
-                    <div className="mb-4">
-                      <span
-                        className={`text-xs font-medium ${
-                          isClosingSoon(internship.lastDate)
-                            ? 'text-destructive'
-                            : 'text-muted-foreground'
-                        }`}
-                      >
-                        Apply by {formatDate(internship.lastDate)}
-                        {isClosingSoon(internship.lastDate) && ' ⚠️'}
-                      </span>
-                    </div>
-
-                    {/* Buttons */}
-                    <div className="flex gap-2 pt-4 border-t border-border">
-                      <Link
-                        href={`/internships/${internship.slug}`}
-                        className="flex-1"
-                      >
-                        <Button variant="outline" className="w-full">
-                          View Details
-                        </Button>
-                      </Link>
-                      <Button className="flex-1 bg-secondary hover:bg-secondary/90 text-secondary-foreground">
-                        Apply Now
-                      </Button>
-                    </div>
-                  </div>
+                  <InternshipCard key={internship.slug} internship={internship} />
                 ))}
               </div>
             ) : (

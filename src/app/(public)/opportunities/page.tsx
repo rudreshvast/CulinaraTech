@@ -19,6 +19,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { LoginRequiredModal } from '@/components/auth/LoginRequiredModal';
+import { ApplyModal } from '@/components/modals/ApplyModal';
 import { useAuthStore } from '@/lib/stores/auth.store';
 import { Job } from '@/lib/types';
 import { jobs } from '@/lib/data/jobs';
@@ -37,13 +38,17 @@ export default function OpportunitiesPage() {
   const [sortBy, setSortBy] = useState<SortOption>('latest');
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showApplyModal, setShowApplyModal] = useState(false);
+  const [selectedJob, setSelectedJob] = useState<typeof jobs[0] | null>(null);
   const { isAuthenticated } = useAuthStore();
 
-  const handleApplyClick = () => {
+  const handleApplyClick = (job: typeof jobs[0]) => {
     if (!isAuthenticated) {
       setShowLoginModal(true);
       return;
     }
+    setSelectedJob(job);
+    setShowApplyModal(true);
   };
 
   const categories = [
@@ -191,12 +196,12 @@ export default function OpportunitiesPage() {
 
   const getBadgeColor = (badge: string) => {
     const colors: Record<string, string> = {
-      'Senior Role': 'bg-purple-500 text-white',
-      'Actively Hiring': 'bg-green-500 text-white',
-      'Leadership Role': 'bg-blue-500 text-white',
-      'Hybrid': 'bg-indigo-500 text-white',
-      'Niche Role': 'bg-orange-500 text-white',
-      'Multiple Openings': 'bg-teal-500 text-white',
+      'Senior Role': 'bg-primary-500 text-white',
+      'Actively Hiring': 'bg-secondary-500 text-white',
+      'Leadership Role': 'bg-tertiary-500 text-white',
+      'Hybrid': 'bg-primary-400 text-white',
+      'Niche Role': 'bg-secondary-600 text-white',
+      'Multiple Openings': 'bg-tertiary-600 text-white',
     };
     return colors[badge] || 'bg-muted text-muted-foreground';
   };
@@ -204,7 +209,7 @@ export default function OpportunitiesPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Banner */}
-      <div className="relative bg-gradient-to-br from-indigo-700 via-indigo-600 to-blue-700 px-4 py-12 text-white sm:py-16 md:py-20">
+      <div className="relative bg-gradient-to-br from-primary-600 via-primary-500 to-tertiary-500 px-4 py-12 text-white sm:py-16 md:py-20">
         <div className="mx-auto max-w-7xl">
           <h1 className="mb-2 text-3xl font-bold sm:text-4xl md:text-5xl">
             Food Processing Jobs
@@ -215,15 +220,15 @@ export default function OpportunitiesPage() {
 
           {/* Stats Pills */}
           <div className="flex flex-wrap gap-3 sm:gap-4">
-            <div className="flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 backdrop-blur-sm">
+            <div className="flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 backdrop-blur-md">
               <span className="font-bold">{jobs.length}</span>
               <span>Open Positions</span>
             </div>
-            <div className="flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 backdrop-blur-sm">
+            <div className="flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 backdrop-blur-md">
               <span className="font-bold">Pan-India</span>
               <span>Locations</span>
             </div>
-            <div className="flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 backdrop-blur-sm">
+            <div className="flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 backdrop-blur-md">
               <Sparkles className="h-4 w-4" />
               <span>Top FMCG Companies</span>
             </div>
@@ -431,7 +436,7 @@ export default function OpportunitiesPage() {
                         </div>
                         <div className="flex flex-wrap gap-1 justify-end flex-shrink-0">
                           {job.featured && (
-                            <Badge variant="secondary" className="bg-amber-100 text-amber-900 text-xs">
+                            <Badge variant="secondary" className="bg-secondary-100 text-secondary-900 text-xs">
                               Featured
                             </Badge>
                           )}
@@ -515,7 +520,7 @@ export default function OpportunitiesPage() {
                             View Details
                           </Button>
                         </Link>
-                        <Button onClick={handleApplyClick} className="flex-1 bg-secondary hover:bg-secondary/90 text-secondary-foreground">
+                        <Button onClick={() => handleApplyClick(job)} className="flex-1 bg-primary hover:bg-primary-600 text-white">
                           Apply Now
                         </Button>
                       </div>
@@ -697,6 +702,21 @@ export default function OpportunitiesPage() {
         title="Login Required"
         description="Please login to your account to apply for jobs."
       />
+
+      {/* Apply Modal */}
+      {selectedJob && (
+        <ApplyModal
+          open={showApplyModal}
+          onOpenChange={setShowApplyModal}
+          position={selectedJob.title}
+          company={selectedJob.company}
+          title={selectedJob.title}
+          onSubmit={(data) => {
+            console.log('Application submitted for:', selectedJob.title, data);
+            setShowApplyModal(false);
+          }}
+        />
+      )}
     </div>
   );
 }

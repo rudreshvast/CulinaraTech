@@ -324,7 +324,7 @@ export const internships: Internship[] = [
       'Interview with Regulatory Affairs Lead',
     ],
     applyLink: '#',
-    applyEmail: 'regulatory.careers@himalayawellness.com',
+    applyEmail: 'r.c@himalayawellness.com',
     relatedCourses: ['nutraceuticals-and-functional-foods'],
   },
   {

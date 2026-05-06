@@ -130,7 +130,7 @@ export default function InternshipPage() {
                   key={opp.id}
                   onClick={() => setSelectedOpportunity(opp)}
                   whileHover={{ y: -4 }}
-                  className="bg-surface-container-lowest p-6 rounded-2xl border border-outline hover:border-primary cursor-pointer group flex flex-col transition-all shadow-sm hover:shadow-lg"
+                  className="bg-surface-container-lowest p-6 rounded-2xl border border-outline hover:border-primary cursor-pointer group flex flex-col transition-all shadow-sm hover:shadow-lg h-full"
                 >
                   <div className="flex justify-between items-start mb-6">
                     <div className="space-y-2">
@@ -149,7 +149,9 @@ export default function InternshipPage() {
                     {opp.location}
                   </div>
 
-                  <div className="mt-auto space-y-4 border-t border-outline pt-6">
+                  <div className="flex-1"></div>
+
+                  <div className="space-y-4 border-t border-outline pt-6">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2 text-on-surface">
                         <Clock className="w-4 h-4 text-primary" />
