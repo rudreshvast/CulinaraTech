@@ -408,7 +408,10 @@ export default function HomePage() {
                   <p className="italic text-foreground mb-6 text-lg">{testimonial.quote}</p>
                   <div className="border-t border-border pt-6">
                     <p className="font-semibold text-foreground">{testimonial.author}</p>
-                    <p className="text-sm text-muted-foreground">{testimonial.college || testimonial.company}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {(testimonial as { college?: string; company?: string }).college ||
+                       (testimonial as { college?: string; company?: string }).company}
+                    </p>
                     <div className="flex gap-1 mt-2">
                       {[...Array(5)].map((_, i) => (
                         <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
