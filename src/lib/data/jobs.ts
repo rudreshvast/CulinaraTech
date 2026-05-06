@@ -329,7 +329,7 @@ export const jobs: Job[] = [
     company: 'Godrej Tyson Foods Ltd.',
     companyLogo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
     companyWebsite: 'https://www.yummiez.in',
-    companyType: 'Joint Venture (Godrej Agrovet + Tyson Foods Inc.)',
+    companyType: 'Godrej',
     badge: 'Multiple Openings',
     category: 'Production & Manufacturing',
     department: 'Production',

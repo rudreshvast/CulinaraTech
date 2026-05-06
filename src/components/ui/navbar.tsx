@@ -226,9 +226,6 @@ export default function Navbar() {
         </div>
       </motion.header>
 
-      {/* MOBILE BOTTOM SPACER */}
-      <div className="md:hidden h-24"></div>
-
       {/* MOBILE FAB NAVIGATION */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 flex justify-center pb-6 pointer-events-none">
         {/* Overlay */}

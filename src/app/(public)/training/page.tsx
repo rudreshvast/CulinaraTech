@@ -82,8 +82,8 @@ export default function TrainingPage() {
         title="Login to Register"
         description="Please login to your account to register for training programs and industrial visits."
       />
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <header className="mb-12">
+      <div className="max-w-7xl mx-auto px-6 py-3 lg:py-12">
+        <header className="mb-6 lg:mb-12">
           <h1 className="text-5xl font-bold text-foreground mb-4">
             Enhance Your <span className="text-gradient-primary">Skills</span>
           </h1>

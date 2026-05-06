@@ -105,7 +105,7 @@ export default function CoursesCatalogPage() {
       <Navbar />
 
       {/* Header */}
-      <section className="max-w-6xl mx-auto px-6 pt-16 md:pt-20 mb-16">
+      <section className="max-w-6xl mx-auto px-6 pt-3 md:pt-12 lg:pt-20 mb-6 md:mb-12">
         <div className="mb-10">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-3">
             Master the Future of{" "}

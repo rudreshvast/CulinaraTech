@@ -302,7 +302,7 @@ export default function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div className="md:order-2 relative h-64 md:h-80">
                 <Image
-                  src="https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?w=600"
+                  src="https://images.unsplash.com/photo-1652211955967-99c892925469?q=80&w=800"
                   alt="Industrial facilities"
                   fill
                   className="object-cover rounded-2xl"
@@ -324,7 +324,7 @@ export default function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div className="relative h-64 md:h-80">
                 <Image
-                  src="https://images.unsplash.com/photo-1529694157872-4e0c0f3b238b?w=600"
+                  src="https://plus.unsplash.com/premium_photo-1661962510909-4be27f3637a2?q=80&w=600"
                   alt="Career growth"
                   fill
                   className="object-cover rounded-2xl"

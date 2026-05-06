@@ -18,7 +18,6 @@ import {
 } from 'lucide-react';
 import { useAuthStore } from '@/lib/stores/auth.store';
 import { useLogout } from '@/lib/hooks/useAuth';
-import Navbar from '@/components/ui/navbar';
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -71,7 +70,6 @@ export default function ProfilePage() {
 
   return (
     <main className="min-h-screen bg-background pb-28 md:pb-0">
-      <Navbar />
 
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-primary-600 via-primary-500 to-tertiary-500 px-4 py-12 md:py-20">

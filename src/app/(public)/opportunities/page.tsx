@@ -237,7 +237,7 @@ export default function OpportunitiesPage() {
       </div>
 
       {/* Main Content */}
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:py-12">
+      <div className="mx-auto max-w-7xl px-4 py-2 sm:py-6 md:py-12">
         <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
           {/* Sidebar - Desktop */}
           <aside className="hidden flex-shrink-0 lg:block w-80">

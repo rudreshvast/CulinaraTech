@@ -8,7 +8,7 @@ import { MaterialIcon } from '../ui/MaterialIcon';
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[800px] flex items-center overflow-hidden bg-surface">
+    <section className="relative min-h-screen md:min-h-[800px] flex items-center overflow-hidden bg-surface">
       {/* Subtle Textures */}
       <div className="absolute left-0 top-0 w-1/4 h-full dot-pattern opacity-10 pointer-events-none"></div>
       <div className="absolute inset-0 tactile-grain"></div>
