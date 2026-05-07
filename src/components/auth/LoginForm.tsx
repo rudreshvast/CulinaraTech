@@ -93,12 +93,7 @@ export function LoginForm() {
                   <label className="block font-label-sm text-on-surface-variant">
                     Password
                   </label>
-                  <a
-                    className="text-label-sm text-primary hover:underline"
-                    href="#"
-                  >
-                    Forgot Password?
-                  </a>
+                 
                 </div>
                 <div className="relative group">
                   <span
@@ -113,6 +108,12 @@ export function LoginForm() {
                     placeholder="••••••••"
                     type={showPassword ? "text" : "password"}
                   />
+                   <a
+                    className="text-label-sm text-primary hover:underline float-right mt-1"
+                    href="#"
+                  >
+                    Forgot Password?
+                  </a>
                   <button
                     className="absolute right-md top-1/2 -translate-y-1/2 text-outline hover:text-on-surface"
                     type="button"
@@ -210,7 +211,7 @@ export function LoginForm() {
             <p className="mt-xl text-center text-body-md text-on-surface-variant">
               Don't have an account?
               <a
-                className="text-primary font-semibold hover:underline"
+                className="text-primary font-semibold hover:underline ml-1"
                 href="#"
               >
                 Sign Up

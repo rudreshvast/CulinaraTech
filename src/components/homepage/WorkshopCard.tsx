@@ -22,7 +22,7 @@ export function WorkshopCard({ workshop }: WorkshopCardProps) {
 
   return (
     <Link href={`/training`}>
-      <div className="flex gap-4 mb-4 bg-background border border-border rounded-lg p-4 hover:border-primary-200 hover:shadow-md transition group">
+      <div className="flex gap-4 mb-4 bg-background border border-border rounded-lg p-4 pb-5 hover:border-primary-200 hover:shadow-md transition group">
         {/* Image */}
         <div className="relative w-20 h-20 flex-shrink-0">
           <Image src={workshop.image} alt={workshop.title} fill className="object-cover rounded-lg" />
