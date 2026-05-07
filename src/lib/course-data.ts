@@ -41,6 +41,8 @@ export type Course = {
   description: string;
   whoThisCourseIsFor: string[];
   sections: Section[];
+  rating?: number;
+  reviews?: number;
 };
  
 export const courses: Course[] = [
