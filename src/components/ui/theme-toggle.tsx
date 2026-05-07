@@ -17,7 +17,7 @@ export function ThemeToggle() {
       size="icon"
       onClick={() => toggle()}
       title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-      className="rounded-full hover:bg-muted"
+      className="rounded-full hover:bg-muted cursor-pointer"
     >
       {theme === 'dark' ? (
         <Sun className="w-5 h-5 text-amber-500" />

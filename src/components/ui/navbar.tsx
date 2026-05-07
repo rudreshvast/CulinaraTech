@@ -156,7 +156,7 @@ export default function Navbar() {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => router.push("/profile")}
-                  className="w-10 h-10 rounded-full bg-[#6440FB] flex items-center justify-center text-white text-sm font-bold hover:shadow-lg transition"
+                  className="cursor-pointer w-10 h-10 rounded-full bg-[#6440FB] flex items-center justify-center text-white text-sm font-bold hover:shadow-lg transition"
                 >
                   {user?.name
                     ?.split(' ')
@@ -169,7 +169,7 @@ export default function Navbar() {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={handleLogout}
-                  className="p-2 hover:bg-muted rounded-lg transition"
+                  className="p-2 hover:bg-muted rounded-lg transition cursor-pointer"
                   title="Logout"
                 >
                   <LogOut size={20} className="text-[#6440FB]" />

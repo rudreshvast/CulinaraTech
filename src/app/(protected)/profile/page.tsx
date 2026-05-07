@@ -117,7 +117,7 @@ export default function ProfilePage() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setIsEditing(!isEditing)}
-                className="w-full md:w-auto px-6 py-2.5 bg-primary text-primary-foreground rounded-lg font-semibold text-sm hover:shadow-lg transition-all duration-200"
+                className="w-full md:w-auto px-6 py-2.5 bg-primary text-white rounded-lg font-semibold text-sm hover:shadow-lg transition-all duration-200"
               >
                 {isEditing ? 'Cancel' : 'Edit Profile'}
               </motion.button>
@@ -160,7 +160,7 @@ export default function ProfilePage() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleSaveProfile}
-                    className="flex-1 px-4 py-2.5 bg-primary text-primary-foreground rounded-lg font-semibold text-sm hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2"
+                    className="flex-1 px-4 py-2.5 bg-primary text-white rounded-lg font-semibold text-sm hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2"
                   >
                     <Save size={18} />
                     Save Changes

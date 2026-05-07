@@ -1,22 +1,21 @@
 'use client';
 
-import Image from 'next/image';
+import Link from 'next/link';
 import { useRef, useState } from 'react';
 import { useAuthStore } from '@/lib/stores/auth.store';
 import { Star, LucideIcon, ChevronLeft, ChevronRight } from 'lucide-react';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
-import { GAUGES, COURSES, TRENDING_COURSES, BESTSELLER_COURSES, OPPORTUNITIES, TIMELINE } from '@/data/dashboard';
+import { GAUGES, COURSES, OPPORTUNITIES, TIMELINE } from '@/data/dashboard';
+import { courses } from '@/lib/course-data';
 
 function RingGauge({
   value,
-  arcColor,
   unit,
   title,
   sub,
   chip,
 }: {
   value: number;
-  arcColor: string;
   unit: string;
   title: string;
   sub: string;
@@ -74,12 +73,14 @@ function CourseRow({
   progress,
   icon: Icon,
   accentVar,
+  slug,
 }: {
   title: string;
   last: string;
   progress: number;
   icon: LucideIcon;
   accentVar: string;
+  slug?: string;
 }) {
   return (
     <div className="flex items-center gap-4 p-4 rounded-[12px] border border-outline-variant/20 bg-card hover:bg-surface-container/50 hover:border-outline-variant/40 transition-all shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
@@ -102,9 +103,12 @@ function CourseRow({
           <span className="text-xs font-semibold text-muted-foreground shrink-0">{progress}%</span>
         </div>
       </div>
-      <button className="bg-primary hover:bg-primary-600 text-primary-foreground text-white text-xs py-1.5 px-4 rounded-full shrink-0 transition-all shadow-[0_2px_8px_rgba(75,23,227,0.15)]">
+      <Link
+        href={slug ? `/courses/${slug}` : '#'}
+        className="bg-primary hover:bg-primary-600 text-primary-foreground text-white text-xs py-1.5 px-4 rounded-full shrink-0 transition-all shadow-[0_2px_8px_rgba(75,23,227,0.15)]"
+      >
         Resume
-      </button>
+      </Link>
     </div>
   );
 }
@@ -117,6 +121,7 @@ function CourseCard({
   price,
   image,
   badge,
+  slug,
 }: {
   title: string;
   instructor: string;
@@ -125,9 +130,10 @@ function CourseCard({
   price: string;
   image: string;
   badge: string;
+  slug?: string;
 }) {
   return (
-    <div className="min-w-[240px] max-w-[240px] overflow-hidden bg-card border border-border rounded-[16px] hover:shadow-[0_8px_32px_rgba(0,0,0,0.12)] transition-all hover:scale-105 shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
+    <Link href={slug ? `/courses/${slug}` : '#'} className="min-w-[240px] max-w-[240px] overflow-hidden bg-card border border-border rounded-[16px] hover:shadow-[0_8px_32px_rgba(0,0,0,0.12)] transition-all hover:scale-105 shadow-[0_2px_8px_rgba(0,0,0,0.05)] block">
       {/* Image Section */}
       <div className="relative h-40 overflow-hidden bg-muted">
         <img
@@ -163,7 +169,7 @@ function CourseCard({
         {/* Price */}
         <p className="text-sm font-bold text-primary">{price}</p>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -208,6 +214,7 @@ interface CarouselCourse {
   reviews: string;
   price: string;
   image: string;
+  slug?: string;
 }
 
 function CourseCarousel({
@@ -276,7 +283,7 @@ function CourseCarousel({
           style={{ scrollBehavior: 'smooth' }}
         >
           {courses.slice(0, 4).map((course) => (
-            <CourseCard key={course.title} {...course} badge={badge} />
+            <CourseCard key={course.title} {...course} slug={course.slug} badge={badge} />
           ))}
           {courses.length > 4 && (
             <div className="min-w-[240px] max-w-[240px] h-96 bg-card border border-dashed border-border rounded-[16px] flex items-center justify-center flex-shrink-0">
@@ -304,7 +311,35 @@ function CourseCarousel({
 
 export default function DashboardPage() {
   const { user } = useAuthStore();
-  const userInitials = user?.name?.split(' ').map((n) => n[0]).join('').toUpperCase() || 'RK';
+
+  // Filter trending courses (those with badges)
+  const trendingCourses = courses
+    .filter((c) => c.badge && ['Trending', 'Hot', 'Popular'].includes(c.badge))
+    .slice(0, 4)
+    .map((c) => ({
+      title: c.title,
+      instructor: c.instructor?.name || 'Instructor',
+      rating: c.rating || 4.5,
+      reviews: c.reviews || '250',
+      price: c.price,
+      image: c.image || 'https://via.placeholder.com/240x160',
+      slug: c.slug,
+    }));
+
+  // Filter bestseller courses (top rated)
+  const bestsellerCourses = courses
+    .filter((c) => !c.badge || !['Trending', 'Hot', 'Popular'].includes(c.badge))
+    .sort((a, b) => (b.rating || 0) - (a.rating || 0))
+    .slice(0, 4)
+    .map((c) => ({
+      title: c.title,
+      instructor: c.instructor?.name || 'Instructor',
+      rating: c.rating || 4.5,
+      reviews: c.reviews || '250',
+      price: c.price,
+      image: c.image || 'https://via.placeholder.com/240x160',
+      slug: c.slug,
+    }));
 
   return (
     <div className="min-h-screen bg-background px-4 md:px-8 py-6 md:py-8 pb-28 md:pb-8" style={{ paddingBottom: 'max(calc(1.75rem + env(safe-area-inset-bottom)), 7rem)' }}>
@@ -337,26 +372,29 @@ export default function DashboardPage() {
                 </a>
               </div>
               <div className="space-y-3">
-                {COURSES.map((course) => (
-                  <CourseRow key={course.title} {...course} />
-                ))}
+                {COURSES.map((course) => {
+                  const catalogCourse = courses.find(c => c.title === course.title);
+                  return (
+                    <CourseRow key={course.title} {...course} slug={catalogCourse?.slug} />
+                  );
+                })}
               </div>
             </div>
 
             {/* Trending Courses */}
             <CourseCarousel
               title="Trending courses"
-              courses={TRENDING_COURSES}
+              courses={trendingCourses}
               badge="Trending"
-              viewAllLink="#"
+              viewAllLink="/courses"
             />
 
             {/* Bestseller Courses */}
             <CourseCarousel
               title="Bestseller courses"
-              courses={BESTSELLER_COURSES}
+              courses={bestsellerCourses}
               badge="Bestseller"
-              viewAllLink="#"
+              viewAllLink="/courses"
             />
           </div>
 
@@ -379,18 +417,18 @@ export default function DashboardPage() {
                 <p className="text-xs text-white/80 mb-4">Matched to your profile</p>
                 <div className="space-y-3 mb-4">
                   {OPPORTUNITIES.map((opp) => (
-                    <div key={opp.org} className="bg-white/10 rounded-[8px] p-3 border border-white/10">
+                    <Link key={opp.org} href="/opportunities" className="block bg-white/10 rounded-[8px] p-3 border border-white/10 hover:bg-white/20 transition-colors">
                       <p className="text-xs font-semibold text-white">{opp.org}</p>
                       <p className="text-[10px] text-white/85 mt-1">{opp.role}</p>
                       <p className="text-[10px] text-white/60 mt-1">
                         {opp.location} · {opp.stipend} · {opp.duration}
                       </p>
-                    </div>
+                    </Link>
                   ))}
                 </div>
-                <button className="w-full rounded-full bg-secondary-500 hover:bg-secondary-600 text-white text-xs font-semibold py-2.5 transition-all shadow-[0_4px_12px_rgba(16,185,129,0.25)]">
+                <Link href="/opportunities" className="block w-full rounded-full bg-secondary-500 hover:bg-secondary-600 text-white text-xs font-semibold py-2.5 transition-all shadow-[0_4px_12px_rgba(16,185,129,0.25)] text-center">
                   Explore all opportunities
-                </button>
+                </Link>
               </div>
             </div>
 

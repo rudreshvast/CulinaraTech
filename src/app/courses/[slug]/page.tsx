@@ -2,7 +2,7 @@
 
 import { notFound } from "next/navigation";
 import { useState, use } from "react";
-import { Star, Check, Play } from "lucide-react";
+import { Star, Check, BookOpen, ChevronDown } from "lucide-react";
 import Navbar from "@/components/ui/navbar";
 import { LoginRequiredModal } from "@/components/auth/LoginRequiredModal";
 import { PaymentModal } from "@/components/modals/PaymentModal";
@@ -232,21 +232,63 @@ export default function CourseDetailsPage({
                 {[
                   {
                     title: 'Foundations of Food Safety Management',
+                    description: 'Learn the fundamentals of food safety systems, including regulatory frameworks and prerequisite programs essential for food production',
                     lessons: 3,
                     duration: '105 mins',
-                    details: ['Food safety management systems overview', 'GMP and GHP as prerequisite programs', 'ISO 22000 vs FSSC 22000 vs BRC']
+                    details: [
+                      {
+                        title: 'Food safety management systems overview',
+                        description: 'Introduction to comprehensive food safety management approaches and their importance in modern food production facilities'
+                      },
+                      {
+                        title: 'GMP and GHP as prerequisite programs',
+                        description: 'Understanding Good Manufacturing Practices (GMP) and Good Hygiene Practices (GHP) as foundational requirements for food safety'
+                      },
+                      {
+                        title: 'ISO 22000 vs FSSC 22000 vs BRC',
+                        description: 'Comparative analysis of major food safety certification standards and their specific requirements and applications'
+                      }
+                    ]
                   },
                   {
                     title: 'HACCP Principles in Depth',
+                    description: 'Master the Hazard Analysis and Critical Control Points methodology, the cornerstone of modern food safety management',
                     lessons: 5,
                     duration: '175 mins',
-                    details: ['Hazard analysis: biological, chemical, physical', 'Determining critical control points (CCPs)', 'Setting critical limits and monitoring procedures']
+                    details: [
+                      {
+                        title: 'Hazard analysis: biological, chemical, physical',
+                        description: 'Comprehensive identification and assessment of potential hazards that could contaminate food products at any stage'
+                      },
+                      {
+                        title: 'Determining critical control points (CCPs)',
+                        description: 'Learn how to identify and evaluate critical control points where hazards can be prevented, eliminated, or reduced to acceptable levels'
+                      },
+                      {
+                        title: 'Setting critical limits and monitoring procedures',
+                        description: 'Establish measurable critical limits for each CCP and implement effective monitoring and documentation procedures'
+                      }
+                    ]
                   },
                   {
                     title: 'Internal Auditing and Non-Conformance',
+                    description: 'Develop skills to conduct effective internal audits, document non-conformances, and implement corrective actions',
                     lessons: 4,
                     duration: '155 mins',
-                    details: ['Planning and conducting internal audits', 'Writing non-conformance reports (NCRs)', 'Root cause analysis tools: 5-Why, fishbone']
+                    details: [
+                      {
+                        title: 'Planning and conducting internal audits',
+                        description: 'Systematic approach to planning, executing, and documenting internal audits to verify food safety system compliance'
+                      },
+                      {
+                        title: 'Writing non-conformance reports (NCRs)',
+                        description: 'Proper documentation of deviations from standards, including detailed descriptions and evidence of non-compliance'
+                      },
+                      {
+                        title: 'Root cause analysis tools: 5-Why, fishbone',
+                        description: 'Apply proven analytical techniques to identify underlying causes of non-conformances and develop effective corrective actions'
+                      }
+                    ]
                   },
                 ].map((section, i) => (
                   <div key={i} className="border border-border rounded-lg overflow-hidden bg-card">
@@ -258,29 +300,35 @@ export default function CourseDetailsPage({
                         <div className="w-9 h-9 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center flex-shrink-0 text-sm">
                           {i + 1}
                         </div>
-                        <div>
+                        <div className="flex-1">
                           <div className="font-semibold text-foreground text-sm">{section.title}</div>
-                          <div className="text-xs text-muted-foreground mt-0.5">
+                          <div className="text-xs text-muted-foreground mt-1">
+                            {section.description}
+                          </div>
+                          <div className="text-xs text-muted-foreground mt-2">
                             {section.lessons} lessons • {section.duration}
                           </div>
                         </div>
                       </div>
-                      <svg
-                        className={`w-5 h-5 text-muted-foreground transition-transform ${expandedSection === i ? 'rotate-180' : ''}`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                      </svg>
+                      <ChevronDown
+                        size={20}
+                        className={`text-muted-foreground transition-transform flex-shrink-0 ${expandedSection === i ? 'rotate-180' : ''}`}
+                      />
                     </button>
 
                     {expandedSection === i && (
-                      <div className="px-4 pb-3 border-t border-border space-y-1.5">
+                      <div className="px-4 pb-3 border-t border-border space-y-3">
                         {section.details.map((detail, j) => (
-                          <div key={j} className="flex gap-3 py-1.5">
-                            <Play size={12} className="text-muted-foreground flex-shrink-0 mt-1" />
-                            <span className="text-sm text-muted-foreground">{detail}</span>
+                          <div key={j} className="py-1.5">
+                            <div className="flex gap-3 mb-1.5">
+                              <BookOpen size={14} className="text-primary flex-shrink-0 mt-0.5" />
+                              <span className="text-sm font-medium text-foreground">{typeof detail === 'string' ? detail : detail.title}</span>
+                            </div>
+                            {typeof detail !== 'string' && (
+                              <div className="ml-6 text-xs text-muted-foreground leading-relaxed">
+                                {detail.description}
+                              </div>
+                            )}
                           </div>
                         ))}
                       </div>
