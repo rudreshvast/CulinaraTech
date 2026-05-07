@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { CheckCircle2, Award, Zap, Star } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { MaterialIcon } from '../ui/MaterialIcon';
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { CheckCircle2, Award, Zap, Star } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { MaterialIcon } from "../ui/MaterialIcon";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen md:min-h-[800px] flex items-center overflow-hidden bg-surface">
+    <section className="relative py-8 md:py-8 lg:py-16 overflow-hidden bg-surface">
       {/* Subtle Textures */}
       <div className="absolute left-0 top-0 w-1/4 h-full dot-pattern opacity-10 pointer-events-none"></div>
       <div className="absolute inset-0 tactile-grain"></div>
 
-      <div className="max-w-7xl mx-auto px-5 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-5 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
         {/* LEFT COLUMN (55%) */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -40,7 +40,7 @@ export function HeroSection() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="text-5xl md:text-6xl font-bold text-on-surface mb-4 leading-tight"
           >
-            From Classroom to{' '}
+            From Classroom to{" "}
             <span className="text-secondary-container bg-primary px-3 py-1 rounded-lg inline-block">
               Factory Floor
             </span>
@@ -53,8 +53,9 @@ export function HeroSection() {
             transition={{ delay: 0.3, duration: 0.6 }}
             className="text-lg text-on-surface-variant mb-10 mt-4 leading-relaxed w-[75%]"
           >
-            Bridge the gap between your food technology degree and real industry practice. Learn from Nestlé, ITC,
-            Britannia, and 10+ leading food companies.
+            Bridge the gap between your food technology degree and real industry
+            practice. Learn from Nestlé, ITC, Britannia, and 10+ leading food
+            companies.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -108,24 +109,35 @@ export function HeroSection() {
             {/* Social Proof */}
             <div className="flex items-center gap-4">
               <div className="flex -space-x-3">
-                {[...Array(4)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary border-2 border-surface flex items-center justify-center text-on-primary text-sm font-bold"
-                  >
-                    {i + 1}
-                  </div>
+                {[
+                  "https://lh3.googleusercontent.com/aida-public/AB6AXuBmOJ88PoVeOUH13opkWEPYGzBR5Ww9tNWl2tm1nDnsUuquQayfntarjmIOsSnOc7xKlEKH9TelSrcx_D1QTzXBfdqVhRzb6j7MyYyV9jYAAdZ2Y9-MPdjLzegPBHogJoR_q1zoPb0ipEhec72VegaCV9jPWVlo4Smss4jlV64OpOlSxpIuWwrCkfJIq567Fbl0xSp4zwQ4nT-34plKulPLOI6qo6SDIIQX8_S0FPSdDyLNQvwdExdFG1STF8UnclPq6KFd8pWsFDE",
+                  "https://lh3.googleusercontent.com/aida-public/AB6AXuCNWW05uuqTe6y9b6ZhKW6l7KkHA9xVeP0jZJJc7WYhpKMM96cgQirYAcrjCvpMVIlLk4RH79_moy6SZ_IIxHsSPSqLBQGSmLWOmt5siyzOsMVeMwD-8dkETtJp1UpNEgQ8SedeKGQHZBAn7VMjvWQWMfTWAggut7g8SJ8lE4fcYNPkbb-Pr_QxLOsxGh2TMG24-dYu6tp90PMzrcp-GigN6gIgyED6R_zTIsGy1L3oRFhLamwqH28R-v4n88HXnwwfyez4vdHTzXY",
+                  "https://lh3.googleusercontent.com/aida-public/AB6AXuA4FA5dzf0G_UGL0kxET8t6HGDcFZ-GQzCwKEZPxFjwc3h40qWCWdbrxjYr7HDlMx0_KpIFfybTUFMvJKImExBCrN2KY9Ia3WuDvIilYza7EwCSvA59pQsmZmdV2HsQNGUQn_Q3q-RosXqr2LK1Ue-aviAu-KlnQgCTBd3ak957xgYdjLcuePwdpfODI8ClTskNDE2JKpOyi9xnaWM1TWwTKs8MA109fvl6qgBQHljcgUYxz00PJIXE07r7erprYq2d2icqyUOOVNE",
+                  "https://lh3.googleusercontent.com/aida-public/AB6AXuAify8xfv_yCgISRHS1uEDZxOx8D532FHXZIe0wJCsspa9nIBFD7xeTlhygAh2eCygRe7eK8pjewFko9yS9txHyBVq1U1IgE-GrOTgSiKnCyDAjalLwQy0TF8UmASxfoid9uhKqynTbEqyMR451IfwAMDUYJiZUUBTeJmZamxlODLwSQYXlxCKYWcCAJQRE9pkb6gfYpGhBOoY2eHcvdoBgLXAzTCWXlB1ySCGQRy-Oy6AngKmcT5MTwQk5uD63cPz9AcXwAdfx_bo",
+                ].map((src, index) => (
+                  <img
+                    key={index}
+                    src={src}
+                    alt={`user-${index}`}
+                    className="w-9 h-9 rounded-full border-2 border-white object-cover"
+                  />
                 ))}
               </div>
               <div>
                 <p className="text-sm text-on-surface">
-                  Join <span className="font-bold">2,400+</span> food technology students
+                  Join <span className="font-bold">2,400+</span> food technology
+                  students
                 </p>
                 <div className="flex items-center gap-1 mt-1">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-primary text-primary" />
+                    <Star
+                      key={i}
+                      className="w-4 h-4 fill-primary text-primary"
+                    />
                   ))}
-                  <span className="text-xs text-on-surface ml-1">4.8 rating</span>
+                  <span className="text-xs text-on-surface ml-1">
+                    4.8 rating
+                  </span>
                 </div>
               </div>
             </div>
@@ -153,8 +165,12 @@ export function HeroSection() {
               className="relative z-20 bg-surface-container-lowest rounded-3xl p-4 shadow-lg mx-auto border border-outline-variant/30"
             >
               {/* Course Image */}
-              <div className="relative mb-4 overflow-hidden rounded-xl h-48 bg-gradient-to-br from-primary-300 to-secondary-300 flex items-center justify-center">
-                <span className="text-6xl opacity-30">🏭</span>
+              <div className="relative w-full h-48 rounded-[10px] overflow-hidden mb-3">
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpPbbcDSXWt_9-XFJkubPRjsZv4XVsF89DBzMJmPDonM5MxWgn45wDuvHn2drUhc2E6sYvHLBJT1P8yIPdwR0xwe69vfKTILehmF3nXQBKbH7S2hSDmB2qDWnKSq2aW8mhvurnM8GpKMA979-7hP2BLBjLRSS4hXdYbzuqoXRDSfPO5O-QeWH1DOvXAm8qX8tsKI-Apbh5LR9gsnwERXJJBi_J-acDz0e9tpagQS2j228Nhz_JNPIlDW-T4viIsnWZBojA_FIh9-k"
+                  alt="Dairy Processing"
+                  className="object-cover"
+                />
               </div>
 
               {/* Popular Badge */}
@@ -163,7 +179,9 @@ export function HeroSection() {
               </div>
 
               {/* Course Title */}
-              <h3 className="text-2xl font-bold text-on-surface mb-2 leading-tight">Industrial Dairy Processing</h3>
+              <h3 className="text-2xl font-bold text-on-surface mb-2 leading-tight">
+                Industrial Dairy Processing
+              </h3>
 
               {/* Instructor & Rating */}
               <div className="flex items-center justify-between mb-4">
@@ -171,7 +189,9 @@ export function HeroSection() {
                   <div className="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center text-xs font-bold">
                     P
                   </div>
-                  <span className="text-sm text-on-surface-variant">Dr. Priya Nair</span>
+                  <span className="text-sm text-on-surface-variant">
+                    Dr. Priya Nair
+                  </span>
                 </div>
                 <div className="flex items-center gap-1">
                   <Star className="w-4 h-4 fill-primary text-primary" />
@@ -182,7 +202,9 @@ export function HeroSection() {
               {/* Progress Bar */}
               <div className="mb-4">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-xs text-on-surface-variant">Progress</span>
+                  <span className="text-xs text-on-surface-variant">
+                    Progress
+                  </span>
                   <span className="text-xs font-bold text-primary">65%</span>
                 </div>
                 <div className="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
@@ -209,8 +231,12 @@ export function HeroSection() {
                   <Award className="w-5 h-5 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-[10px] uppercase font-bold tracking-wider text-primary">New Internship</p>
-                  <p className="text-sm font-semibold text-on-surface leading-tight">QA Intern — Nestlé</p>
+                  <p className="text-[10px] uppercase font-bold tracking-wider text-primary">
+                    New Internship
+                  </p>
+                  <p className="text-sm font-semibold text-on-surface leading-tight">
+                    QA Intern — Nestlé
+                  </p>
                   <div className="flex justify-between items-center mt-3 gap-2">
                     <p className="text-sm font-bold text-primary">₹15,000/mo</p>
                     <button className="text-[10px] bg-primary text-on-primary px-2 py-1 rounded-full font-bold hover:opacity-90 transition">
@@ -226,14 +252,18 @@ export function HeroSection() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
-              className="absolute -right-10 bottom-1/4 glass-card p-3 rounded-xl z-30 max-w-56 shadow-lg"
+              className="absolute -right-4 bottom-1/4 glass-card bg-white/60 p-3 rounded-xl z-30 max-w-56 shadow-lg"
             >
               <div className="space-y-2 space-x-4">
                 <div className="flex items-center gap-2">
                   <span className="text-primary">🏭</span>
-                  <span className="text-sm text-on-surface-variant">Plant Visit</span>
+                  <span className="text-sm text-on-surface-variant">
+                    Plant Visit
+                  </span>
                 </div>
-                <p className="font-bold text-on-surface text-md">Britannia Factory</p>
+                <p className="font-bold text-on-surface text-md">
+                  Britannia Factory
+                </p>
                 <div className="flex items-center justify-between">
                   <p className="text-sm text-on-surface-variant">Jun 21</p>
                   <div className="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full text-[10px] font-bold">
@@ -252,7 +282,9 @@ export function HeroSection() {
               className="absolute right-0 top-10 bg-primary text-on-primary w-28 h-28 rounded-full flex flex-col items-center justify-center shadow-lg z-30 border-4 border-surface"
             >
               <span className="text-3xl font-bold leading-none">94%</span>
-              <span className="text-[10px] uppercase font-bold text-center leading-tight">Placement Rate</span>
+              <span className="text-[10px] uppercase font-bold text-center leading-tight">
+                Placement Rate
+              </span>
             </motion.div>
           </div>
         </motion.div>
